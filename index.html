@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hugo Rouillard - Portfolio</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <meta name="description" content="Hi! I'm Hugo Rouillard" />
+
+    <!-- ICO favicon as a fallback for browsers that don't support SVG favicons (Safari) -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Hugo Rouillard's Portfolio" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Hi! I'm Hugo Rouillard" />
+    <meta property="og:color" content="#da755b" />
+    <!-- Twitter card -->
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+  <body>
+    <div class="flex items-center space-between w-full flex-col font-medium">
+      <main
+        class="mx-auto w-full px-12 md:px-0 md:w-2/3 lg:w-1/2 2xl:w-1/3 h-full relative gap-16 py-18 flex flex-col"
+      >
+        <nav class="flex justify-between">
+          <a id="logo" href="/">
+            <h2 class="text-2xl font-semibold leading-none">H</h2>
+            <h3 class="text-base opacity-50 italic leading-none">Rouillard</h3>
+          </a>
+          <p style="opacity: 0;" class="absolute">
+            Hugo Rouillard
+          </p>
+          <div id="links" class="gap-5 flex items-center">
+            <a href="https://github.com/hugorouillard"
+              ><i class="fa-brands fa-github"></i
+            ></a>
+            <a href="https://www.linkedin.com/in/rouillard-hugo/"
+              ><i class="fa-brands fa-linkedin"></i
+            ></a>
+          </div>
+        </nav>
+        <section id="content">
+          <h1 class="text-xl font-bold flex gap-2">
+            <div>What's up?</div>
+            <div>👋</div>
+          </h1>
+          <p class="text-base opacity-50">
+            Building digital experiences with code and creativity
+          </p>
+        </section>
+        <section id="projects" class="md:ml-6 flex flex-col gap-10">
+          <a class="flex gap-2 flex-col" href="#">
+            <h3 class="font-bold text-xl">Example Project</h3>
+            <p class="opacity-50 text-sm max-w-81">
+              A sample project demonstrating web development skills and best practices.
+            </p>
+            <div class="flex text-sm font-bold items-center gap-2">
+              Learn More
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+          <div class="flex font-bold text-sm items-center gap-4">
+            <div class="hidden md:block whitespace-nowrap opacity-20">
+              Blog Posts
+            </div>
+            <div class="line-holder">
+              <div class="smallLine smallLine1"></div>
+              <div class="smallLine smallLine2"></div>
+            </div>
+          </div>
+          <a class="flex gap-2 flex-col" href="#?blog=01" blog="01">
+            <h3 class="font-bold text-xl">
+              Building My First Application
+            </h3>
+            <p class="opacity-50 text-sm max-w-81">
+              A walkthrough of my first full-stack application development journey.
+            </p>
+            <div class="flex text-sm font-bold items-center gap-2">
+              Read Post
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
+        </section>
+      </main>
+      <section
+        id="blog-space"
+        class="hidden mx-auto w-full px-12 md:px-0 md:w-2/3 lg:w-1/2 2xl:w-1/3 h-full relative pt-4 pb-16 flex flex-col"
+      >
+        <div class="w-full flex justify-between" id="blog-nav">
+          <a id="back" href="javascript:void(0)">
+            <i class="fa-solid fa-arrow-left"></i>
+            <span> Back </span>
+          </a>
+        </div>
+        <div id="blog-content"></div>
+      </section>
+      <footer
+        class="flex flex-col md:flex-row justify-center gap-4 items-center font-normal text-sm pb-6 opacity-70"
+        id="footer"
+      >
+        <p style="opacity: 0">Portfolio &copy; 2025</p>
+        <p style="opacity: 0" class="hidden md:block">•</p>
+        <a
+          style="opacity: 0"
+          class="font-bold"
+          href="https://github.com/hugorouillard/www"
+          >Source Code</a
+        >
+      </footer>
+      <p style="opacity: 0;" class="absolute select-none">
+        Hugo Rouillard
+      </p>
+    </div>
+    <section id="blog-01">
+      <img
+        src="./blog-01.webp"
+        alt="Building My First Application"
+        class="w-full rounded-3xl shadow-md my-8"
+        loading="lazy"
+      />
+      <div>
+        Starting a new programming project can be both exciting and overwhelming. In this post, I share my experience building my first full-stack web application from scratch, covering the technologies I used, the challenges I faced, and the lessons I learned along the way.
+        <br /><br />
+        <strong>Getting Started</strong>
+        <br /><br />
+        Every developer remembers their first "real" project—the one that goes beyond tutorials and hello world examples. For me, this was a task management application built with React and Node.js. I chose this project because it allowed me to explore both frontend and backend development while creating something practical.
+        <br /><br />
+        The initial planning phase was crucial. I spent time wireframing the user interface, designing the database schema, and breaking down the features into manageable components. This upfront investment in planning saved me countless hours of refactoring later.
+      </div>
+      <div>
+        <strong>The Development Process</strong>
+        <br /><br />
+        I began with the frontend, creating the basic UI components with React. Using functional components with hooks made state management much easier than I expected. The backend was built with Express.js, and I implemented RESTful APIs to handle CRUD operations for tasks.
+        <br /><br />
+        One of the biggest challenges was connecting the frontend and backend. Understanding CORS, setting up proper API endpoints, and handling asynchronous data fetching were all new concepts that took time to grasp. I also learned the importance of error handling and validation—lessons that only come through experience.
+        <br /><br />
+        As the project grew, I realized the value of writing clean, modular code. Refactoring became a regular part of my workflow, and I adopted practices like component reuse, proper naming conventions, and consistent code organization.
+      </div>
+      <div>
+        <strong>Key Lessons Learned</strong>
+        <br /><br />
+        <ul class="ml-4">
+          <li>
+            <strong>Start small and iterate.</strong> It's tempting to plan every feature upfront, but building a minimal version first allows for faster feedback and course correction.<br /><br />
+          </li>
+          <li>
+            <strong>Testing is not optional.</strong> Writing tests for critical functionality caught bugs early and gave me confidence in my code.<br /><br />
+          </li>
+          <li>
+            <strong>Documentation matters.</strong> Even for personal projects, documenting your code and decisions helps future-you understand what you were thinking.<br /><br />
+          </li>
+          <li>
+            <strong>Embrace the struggle.</strong> The moments of frustration are often the ones where the most learning happens.<br /><br />
+          </li>
+        </ul>
+      </div>
+      <div>
+        <strong>Looking Forward</strong>
+        <br /><br />
+        This first application was just the beginning. Since completing it, I've built several more projects, each one teaching me something new. The journey of a developer is one of continuous learning, and I'm excited to see where it takes me next.
+        <br /><br />
+        If you're just starting out with web development, my advice is simple: start building. Pick a project that excites you, break it down into small steps, and don't be afraid to make mistakes. Every line of code you write makes you a better developer.
+        <br /><br />
+        ~ Hugo
+      </div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/motion@v12.23.11/dist/motion.js"></script>
+    <script src="./script.js"></script>
+    <style>
+      #projects:not([gone-back]) > a *,
+      #projects:not([gone-back]) > div {
+        opacity: 0;
+      }
+
+      #projects > a {
+        i {
+          transition: margin 0.1s;
+        }
+
+        &:hover {
+          i {
+            margin-left: 5px;
+          }
+        }
+      }
+    </style>
+  </body>
+</html>
