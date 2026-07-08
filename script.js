@@ -3,6 +3,11 @@ const { animate, stagger } = Motion;
 var insideBlog = false;
 
 async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
+  const blogParent = document.getElementById(`blog-${blogid}`);
+  if (!blogElem || !blogParent) {
+    return;
+  }
+
   insideBlog = true;
   if (!fromLoad) {
     await animate("#footer", {
@@ -30,7 +35,6 @@ async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
     document.querySelector(`#blog-${blogid} > video`);
   const title = blogElem.querySelector("h3").textContent;
   const content = [];
-  const blogParent = document.getElementById(`blog-${blogid}`);
   for (const child of blogParent.children) {
     if (child.tagName === "IMG" || child.tagName === "VIDEO") {
       continue;
@@ -124,10 +128,12 @@ async function main() {
   );
 }
 
-document.getElementById("back").onclick = async () => {
+async function closeBlog(updateUrl = true) {
   insideBlog = false;
   beforeLoadBlog = null;
-  history.pushState({}, "", "/");
+  if (updateUrl) {
+    history.replaceState({}, "", window.location.pathname);
+  }
   const elements = Array.from(
     document.querySelectorAll("#back, #blog-content > *"),
   ).reverse();
@@ -157,6 +163,15 @@ document.getElementById("back").onclick = async () => {
       delay: stagger(0.05),
     },
   );
+}
+
+document.getElementById("back").onclick = async (event) => {
+  event.preventDefault();
+  if (history.state && history.state.blogid) {
+    history.back();
+    return;
+  }
+  await closeBlog();
 };
 
 if (beforeLoadBlog) {
@@ -172,7 +187,7 @@ window.addEventListener("popstate", (event) => {
     animateAndOpenBlog(event.state.blogid, blogElem, true);
   } else {
     if (insideBlog) {
-      document.getElementById("back").click();
+      closeBlog(false);
     }
   }
 });
