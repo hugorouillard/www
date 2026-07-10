@@ -3,6 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1e1e2e" />
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("theme") === "light" ? "light" : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
     <title>Hugo Rouillard - Portfolio</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link
@@ -22,7 +31,7 @@
     <meta property="og:title" content="Hugo Rouillard's Portfolio" />
     <meta property="og:type" content="website" />
     <meta property="og:description" content="Hi! I'm Hugo Rouillard" />
-    <meta property="og:color" content="#da755b" />
+    <meta property="og:color" content="#1e1e2e" />
     <!-- Twitter card -->
     <meta name="twitter:card" content="summary_large_image" />
   </head>
@@ -40,6 +49,21 @@
             Hugo Rouillard
           </p>
           <div id="links" class="gap-5 flex items-center">
+            <button
+              id="theme-toggle"
+              type="button"
+              aria-label="Switch to light mode"
+              title="Switch to light mode"
+            >
+              <i
+                class="fa-solid fa-sun theme-icon-light"
+                aria-hidden="true"
+              ></i>
+              <i
+                class="fa-solid fa-moon theme-icon-dark"
+                aria-hidden="true"
+              ></i>
+            </button>
             <a href="https://github.com/hugorouillard"
               ><i class="fa-brands fa-github"></i
             ></a>

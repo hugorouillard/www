@@ -2,6 +2,33 @@ const { animate, stagger } = Motion;
 
 var insideBlog = false;
 
+const themeToggle = document.getElementById("theme-toggle");
+const themeColor = document.querySelector('meta[name="theme-color"]');
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute(
+    "aria-label",
+    `Switch to ${isDark ? "light" : "dark"} mode`,
+  );
+  themeToggle.title = `Switch to ${isDark ? "light" : "dark"} mode`;
+  themeColor.content = isDark ? "#1e1e2e" : "#fff0df";
+}
+
+applyTheme(document.documentElement.dataset.theme || "dark");
+
+themeToggle.addEventListener("click", () => {
+  const nextTheme =
+    document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(nextTheme);
+  try {
+    localStorage.setItem("theme", nextTheme);
+  } catch {
+    // The active theme still works when storage is unavailable.
+  }
+});
+
 async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
   const blogParent = document.getElementById(`blog-${blogid}`);
   if (!blogElem || !blogParent) {
