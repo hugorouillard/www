@@ -214,3 +214,31 @@ section[id^="blog-0"] {
   overflow: hidden;
   max-width: 0;
 }
+
+/* Page sections */
+.page-section {
+  display: none;
+}
+
+.page-section.active {
+  display: block;
+}
+
+/* Page navigation */
+#page-nav {
+  margin-right: 1rem;
+}
+
+.nav-link {
+  transition: opacity 0.2s ease;
+  color: var(--text-color);
+}
+
+.nav-link.active {
+  opacity: 100 !important;
+  color: var(--accent-color);
+}
+
+.nav-link:hover {
+  opacity: 100;
+}

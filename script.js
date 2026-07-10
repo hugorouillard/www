@@ -1,6 +1,7 @@
 const { animate, stagger } = Motion;
 
 var insideBlog = false;
+var currentPage = null;
 
 const themeToggle = document.getElementById("theme-toggle");
 const themeColor = document.querySelector('meta[name="theme-color"]');
@@ -29,6 +30,63 @@ themeToggle.addEventListener("click", () => {
   }
 });
 
+// Page navigation
+const navLinks = document.querySelectorAll('.nav-link');
+const pageSections = document.querySelectorAll('.page-section');
+
+function setActivePage(pageId) {
+  currentPage = pageId;
+  
+  // Update nav links
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    const href = link.getAttribute('href');
+    // Extract page name from href (e.g., "/about.html" -> "about")
+    const linkPage = href.replace(/^\/|\.html$/g, '');
+    if (linkPage === pageId) {
+      link.classList.add('active');
+    }
+  });
+  
+  // Update page sections
+  pageSections.forEach(section => {
+    section.classList.remove('active');
+    if (section.id === pageId) {
+      section.classList.add('active');
+    }
+  });
+}
+
+// Determine current page from URL
+function getCurrentPageFromURL() {
+  const path = window.location.pathname;
+  const pageMatch = path.match(/\/([^\/]+)\.html$/);
+  if (pageMatch) {
+    return pageMatch[1]; // e.g., "about", "projects", "writing"
+  }
+  return 'about'; // default
+}
+
+// Initialize current page
+currentPage = getCurrentPageFromURL();
+setActivePage(currentPage);
+
+// Handle nav link clicks - for single-page navigation
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    const href = link.getAttribute('href');
+    const pageName = href.replace(/^\/|\.html$/g, '');
+    
+    // If we're on the same page, just update the active state
+    if (window.location.pathname.endsWith(`${pageName}.html`) || 
+        (pageName === 'about' && window.location.pathname === '/')) {
+      e.preventDefault();
+      setActivePage(pageName);
+    }
+    // Otherwise, let the browser navigate
+  });
+});
+
 async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
   const blogParent = document.getElementById(`blog-${blogid}`);
   if (!blogElem || !blogParent) {
@@ -43,7 +101,7 @@ async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
       blur: [0, 1],
     });
     await animate(
-      "#content > *, #projects > *",
+      "#about > *, #projects > *, #writing > *",
       {
         opacity: [1, 0],
         x: [0, -60],
@@ -54,8 +112,9 @@ async function animateAndOpenBlog(blogid, blogElem, fromLoad = false) {
       },
     );
   }
-  document.getElementById("content").classList.add("hidden");
+  document.getElementById("about").classList.add("hidden");
   document.getElementById("projects").classList.add("hidden");
+  document.getElementById("writing").classList.add("hidden");
   document.getElementById("blog-space").classList.remove("hidden");
   const img =
     document.querySelector(`#blog-${blogid} > img`) ||
@@ -118,28 +177,49 @@ const urlParams = new URLSearchParams(window.location.search);
 var beforeLoadBlog = urlParams.get("blog");
 
 async function main() {
-  await animate(
-    "#logo > *, #links > *, #content > h1:first-child > *, #content > p",
-    {
-      opacity: [0, 1],
-      y: [20, 0],
-      blur: [1, 0],
-    },
-    {
-      delay: stagger(0.05),
-    },
-  );
-  await animate(
-    "#projects > a *, #projects > div",
-    {
-      opacity: [0, 1],
-      blur: [1, 0],
-      x: [-20, 0],
-    },
-    {
-      delay: stagger(0.05),
-    },
-  );
+  // Animate in the current page's content
+  const activeSection = document.querySelector('.page-section.active');
+  if (activeSection) {
+    await animate(
+      "#logo > *, #links > *",
+      {
+        opacity: [0, 1],
+        y: [20, 0],
+        blur: [1, 0],
+      },
+      {
+        delay: stagger(0.05),
+      },
+    );
+    
+    await animate(
+      `#${activeSection.id} > *`,
+      {
+        opacity: [0, 1],
+        y: [20, 0],
+        blur: [1, 0],
+      },
+      {
+        delay: stagger(0.05),
+      },
+    );
+  }
+
+  // Animate other sections if they exist on the page
+  const otherSections = document.querySelectorAll('.page-section:not(.active)');
+  for (const section of otherSections) {
+    await animate(
+      `#${section.id} > *`,
+      {
+        opacity: [0, 1],
+        blur: [1, 0],
+        x: [-20, 0],
+      },
+      {
+        delay: stagger(0.05),
+      },
+    );
+  }
 
   await animate(
     "footer > *",
@@ -159,7 +239,7 @@ async function closeBlog(updateUrl = true) {
   insideBlog = false;
   beforeLoadBlog = null;
   if (updateUrl) {
-    history.replaceState({}, "", window.location.pathname);
+    history.replaceState({}, "", window.location.pathname + window.location.hash);
   }
   const elements = Array.from(
     document.querySelectorAll("#back, #blog-content > *"),
@@ -177,10 +257,15 @@ async function closeBlog(updateUrl = true) {
   );
   document.getElementById("blog-space").classList.add("hidden");
   document.getElementById("projects").setAttribute("gone-back", "");
-  document.getElementById("content").classList.remove("hidden");
+  document.getElementById("about").classList.remove("hidden");
   document.getElementById("projects").classList.remove("hidden");
+  document.getElementById("writing").classList.remove("hidden");
+  
+  // Restore page state
+  setActivePage(currentPage);
+  
   await animate(
-    "#content > *, #projects > *",
+    "#about > *, #projects > *, #writing > *",
     {
       opacity: [0, 1],
       x: [-50, 0],
