@@ -34,9 +34,9 @@
   --text-color: var(--ctp-text);
   --muted-color: var(--ctp-subtext-0);
   --border-color: var(--ctp-surface-1);
-  --accent-color: var(--ctp-blue);
+  --accent-color: var(--ctp-pink);
   --focus-color: var(--ctp-lavender);
-  --ambient-color: rgb(137 180 250 / 10%);
+  --ambient-color: rgb(245 194 231 / 10%);
 }
 
 :root[data-theme="light"] {
