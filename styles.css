@@ -86,6 +86,10 @@ body {
 
 #links > a,
 #theme-toggle {
+  display: grid;
+  width: 1.5rem;
+  height: 1.5rem;
+  place-items: center;
   transition: scale 0.05s ease-out;
   &:hover {
     color: var(--accent-color);
@@ -100,11 +104,7 @@ body {
 }
 
 #theme-toggle {
-  display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
   cursor: pointer;
-  place-items: center;
   border: 0;
   border-radius: 0.25rem;
   background: transparent;
