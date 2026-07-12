@@ -93,7 +93,7 @@ body {
   }
 }
 
-#logo h2,
+#logo .logo-accent,
 #projects > a > div:last-child,
 #back {
   color: var(--accent-color);
