@@ -87,14 +87,21 @@ body {
 #links > a,
 #theme-toggle {
   display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
   place-items: center;
-  transition: scale 0.05s ease-out;
+  color: var(--muted-color);
+  font-size: 1.0625rem;
+  line-height: 1;
+  transition: color 0.15s ease, opacity 0.15s ease;
   &:hover {
-    color: var(--accent-color);
-    scale: 1.1;
+    color: var(--text-color);
+    opacity: 0.8;
   }
+}
+
+#links {
+  gap: 0.5rem;
 }
 
 #logo .logo-accent,
