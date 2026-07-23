@@ -1,0 +1,3 @@
+baseURL = 'https://hugorouillard.dev/'
+locale = 'en-us'
+title = 'Hugo Rouillard'
