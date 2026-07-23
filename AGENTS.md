@@ -7,19 +7,6 @@
 - Hugo has been considered for future content growth but is not installed or adopted. Do not migrate the site or introduce a framework unless the task explicitly calls for it.
 - `.nojekyll` is intentional for direct static hosting. The target domain is `hugorouillard.dev`, but this repository contains no `CNAME` or deploy workflow, so do not assume the hosting/DNS flow is configured here.
 
-## Run And Verify
-
-- Serve the repository root with `python3 -m http.server 8000`; opening the file directly does not accurately exercise root-relative URLs and history behavior.
-- The page requires network access for Tailwind Browser v4, Font Awesome, and Motion, all loaded from CDNs in `index.html`.
-- After JavaScript edits, run `node --check script.js`. There are no automated browser tests; manually check desktop and mobile widths, both themes, the blog link, a direct `/?blog=01` load, and browser Back/Forward.
-
-## Runtime Traps
-
-- Tailwind classes are compiled in the browser, not by a local Tailwind build. Custom CSS also uses native CSS nesting; do not "fix" either by assuming a missing build pipeline.
-- The inline `<head>` theme script prevents a color flash. `applyTheme()` must keep `data-theme`, the toggle label/title, `theme-color`, and `localStorage` synchronized.
-- Current blog content lives in hidden `section[id^="blog-0"]` elements. `script.js` copies it into `#blog-content` and uses `?blog=<id>` plus History API state; edits to this flow must cover click, direct-load, Back, and Forward paths.
-- Several elements start at zero opacity and Motion reveals them. When changing animation, keep core content readable if the CDN or JavaScript fails and respect reduced-motion users.
-
 ## Product Direction
 
 - Treat the homepage as a curated storefront: a short personal introduction followed by selected projects and writing, not the complete archive.
