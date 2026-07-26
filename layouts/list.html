@@ -6,8 +6,18 @@
 
     <ul>
         {{ range .Pages }}
+        {{ $destination := .RelPermalink }}
+
+        {{ with .Params.external_url }}
+        {{ $destination = . }}
+        {{ end }}
+
         <li>
-            <a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a>
+            <a href="{{ $destination }}">{{ .LinkTitle }}</a>
+
+            {{ with .Description }}
+            <p>{{ . }}</p>
+            {{ end }}
         </li>
         {{ end }}
     </ul>
