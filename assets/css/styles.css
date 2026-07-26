@@ -65,8 +65,9 @@ button:focus-visible {
 .site-header,
 .site-main,
 .site-footer {
-  width: min(100% - 4rem, 56rem);
+  width: min(100%, 56rem);
   margin-inline: auto;
+  padding-inline: 2rem;
 }
 
 .site-header {
@@ -91,33 +92,36 @@ button:focus-visible {
 .site-nav {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.5rem;
   color: var(--muted-color);
-  font-size: 0.875rem;
 }
 
-.site-nav a {
-  transition: color 0.15s ease;
+.social-link,
+#theme-toggle {
+  display: grid;
+  width: 1.125rem;
+  height: 1.125rem;
+  place-items: center;
+  transition: color 0.15s ease, opacity 0.15s ease;
 }
 
-.site-nav a[aria-current="page"] {
+.social-link:hover,
+#theme-toggle:hover {
   color: var(--text-color);
+  opacity: 0.8;
 }
 
-.nav-divider {
-  width: 1px;
-  height: 1rem;
-  background: var(--border-color);
-}
-
-.social-link {
-  font-size: 0.75rem;
+.social-link svg,
+.theme-icon {
+  width: 100%;
+  height: 100%;
+  fill: currentcolor;
 }
 
 #theme-toggle {
   display: grid;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.125rem;
+  height: 1.125rem;
   cursor: pointer;
   place-items: center;
   padding: 0;
@@ -128,13 +132,8 @@ button:focus-visible {
   font: inherit;
 }
 
-#theme-toggle:hover {
-  color: var(--text-color);
-}
-
 .theme-icon {
   grid-area: 1 / 1;
-  line-height: 1;
 }
 
 .theme-icon--dark,
@@ -343,22 +342,12 @@ button:focus-visible {
   .site-header,
   .site-main,
   .site-footer {
-    width: min(100% - 3rem, 56rem);
+    width: 100%;
+    padding-inline: 1.5rem;
   }
 
   .site-header {
-    align-items: flex-start;
-    padding-top: 3rem;
-  }
-
-  .site-nav {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  .social-link,
-  .nav-divider {
-    display: none;
+    padding-top: 3.5rem;
   }
 
   .site-main {
