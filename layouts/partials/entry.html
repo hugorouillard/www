@@ -1,19 +1,27 @@
-{{ $destination := .RelPermalink }}
+{{ $page := .page }}
+{{ $destination := $page.RelPermalink }}
 {{ $external := false }}
-{{ with .Params.external_url }}
+{{ with $page.Params.external_url }}
   {{ $destination = . }}
   {{ $external = true }}
 {{ end }}
 
+{{ $excerpt := $page.Description }}
+{{ if .useSummary }}
+  {{ with $page.Summary }}
+    {{ $excerpt = . | plainify | strings.TrimSpace }}
+  {{ end }}
+{{ end }}
+
 <article class="entry" data-animate>
   <div class="entry-heading">
-    <h3><a href="{{ $destination }}">{{ .LinkTitle }}</a></h3>
-    {{ if eq .Section "writing" }}
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time>
+    <h3><a href="{{ $destination }}">{{ $page.LinkTitle }}</a></h3>
+    {{ if .showDate }}
+      <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006-01-02" }}</time>
     {{ end }}
   </div>
-  {{ with .Description }}<p>{{ . }}</p>{{ end }}
+  {{ with $excerpt }}<p>{{ . }}</p>{{ end }}
   <a class="entry-action" href="{{ $destination }}">
-    {{ if eq .Section "writing" }}Read article{{ else if $external }}View repository{{ else }}Learn more{{ end }} →
+    {{ if eq $page.Section "writing" }}Read article{{ else if $external }}View repository{{ else }}Learn more{{ end }} →
   </a>
 </article>

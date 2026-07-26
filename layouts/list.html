@@ -14,7 +14,11 @@
   {{ with $pages }}
     <div class="entry-list entry-list--index">
       {{ range . }}
-        {{ partial "entry.html" . }}
+        {{ partial "entry.html" (dict
+          "page" .
+          "useSummary" (eq .Section "writing")
+          "showDate" (eq .Section "writing")
+        ) }}
       {{ end }}
     </div>
   {{ else }}

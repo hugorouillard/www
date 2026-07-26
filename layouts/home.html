@@ -4,36 +4,24 @@
   </section>
 
   {{ with site.GetPage "/projects" }}
-    {{ $featured := where .Pages "Params.featured" true }}
-    {{ with $featured }}
-      <section class="curated-section" aria-labelledby="featured-projects">
-        <div class="section-heading">
-          <h2 id="featured-projects">Projects</h2>
-        </div>
-        <div class="entry-list">
-          {{ range .ByTitle }}
-            {{ partial "entry.html" . }}
-          {{ end }}
-        </div>
-        <a class="section-more" href="{{ relURL "projects/" }}">All projects →</a>
-      </section>
-    {{ end }}
+    {{ partial "featured-section.html" (dict
+      "id" "featured-projects"
+      "title" "Projects"
+      "pages" (where .RegularPages.ByWeight "Params.featured" true)
+      "useSummary" false
+      "indexURL" .RelPermalink
+      "indexLabel" "All projects"
+    ) }}
   {{ end }}
 
   {{ with site.GetPage "/writing" }}
-    {{ $featured := where .Pages "Params.featured" true }}
-    {{ with $featured }}
-      <section class="curated-section" aria-labelledby="featured-writing">
-        <div class="section-heading">
-          <h2 id="featured-writing">Writing</h2>
-        </div>
-        <div class="entry-list">
-          {{ range .ByDate.Reverse }}
-            {{ partial "entry.html" . }}
-          {{ end }}
-        </div>
-        <a class="section-more" href="{{ relURL "writing/" }}">All writing →</a>
-      </section>
-    {{ end }}
+    {{ partial "featured-section.html" (dict
+      "id" "featured-writing"
+      "title" "Blog Posts"
+      "pages" (where .RegularPages.ByDate.Reverse "Params.featured" true)
+      "useSummary" true
+      "indexURL" .RelPermalink
+      "indexLabel" "All writing"
+    ) }}
   {{ end }}
 {{ end }}
