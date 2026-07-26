@@ -73,10 +73,10 @@ button:focus-visible {
 }
 
 .site-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
+  column-gap: 1.25rem;
   padding-top: 4.5rem;
 }
 
@@ -89,6 +89,23 @@ button:focus-visible {
 
 .brand span {
   color: var(--accent-color);
+}
+
+.primary-nav {
+  display: flex;
+  justify-self: end;
+  gap: 1rem;
+  color: var(--muted-color);
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.primary-nav a {
+  transition: color 0.15s ease;
+}
+
+.primary-nav a[aria-current="page"] {
+  color: var(--text-color);
 }
 
 .site-nav {
@@ -373,7 +390,25 @@ button:focus-visible {
   }
 
   .site-header {
+    grid-template-areas:
+      "brand utilities"
+      "primary primary";
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1.25rem 0.75rem;
     padding-top: 3.5rem;
+  }
+
+  .brand {
+    grid-area: brand;
+  }
+
+  .primary-nav {
+    grid-area: primary;
+    justify-self: start;
+  }
+
+  .site-nav {
+    grid-area: utilities;
   }
 
   .site-main {

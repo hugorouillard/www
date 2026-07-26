@@ -4,6 +4,16 @@ title = 'Hugo Rouillard'
 enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term']
 
+[[menus.main]]
+  name = 'Projects'
+  pageRef = '/projects'
+  weight = 10
+
+[[menus.main]]
+  name = 'Writing'
+  pageRef = '/writing'
+  weight = 20
+
 [params]
   description = 'Things I’ve built, things I’ve written, and whatever else has caught my attention.'
   github = 'https://github.com/hugorouillard'
