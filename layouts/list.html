@@ -1,25 +1,23 @@
 {{ define "main" }}
-<section>
+  <header class="page-header prose">
     <h1>{{ .Title }}</h1>
+    {{ with .Content }}{{ . }}{{ end }}
+  </header>
 
-    {{ with .Content }} {{ . }} {{ end }}
+  {{ $pages := .Pages }}
+  {{ if eq .Section "writing" }}
+    {{ $pages = .Pages.ByDate.Reverse }}
+  {{ else }}
+    {{ $pages = .Pages.ByTitle }}
+  {{ end }}
 
-    <ul>
-        {{ range .Pages }}
-        {{ $destination := .RelPermalink }}
-
-        {{ with .Params.external_url }}
-        {{ $destination = . }}
-        {{ end }}
-
-        <li>
-            <a href="{{ $destination }}">{{ .LinkTitle }}</a>
-
-            {{ with .Description }}
-            <p>{{ . }}</p>
-            {{ end }}
-        </li>
-        {{ end }}
-    </ul>
-</section>
+  {{ with $pages }}
+    <div class="entry-list entry-list--index">
+      {{ range . }}
+        {{ partial "entry.html" . }}
+      {{ end }}
+    </div>
+  {{ else }}
+    <p class="empty-state">Nothing published here yet.</p>
+  {{ end }}
 {{ end }}

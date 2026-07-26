@@ -1,3 +1,10 @@
 baseURL = 'https://hugorouillard.dev/'
 locale = 'en-us'
 title = 'Hugo Rouillard'
+enableRobotsTXT = true
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  description = 'Things I’ve built, things I’ve written, and whatever else has caught my attention.'
+  github = 'https://github.com/hugorouillard'
+  linkedin = 'https://www.linkedin.com/in/rouillard-hugo/'

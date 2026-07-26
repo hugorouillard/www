@@ -1,8 +1,17 @@
-<header>
-  <a href="{{ site.Home.RelPermalink }}">{{ site.Title }}</a>
+<header class="site-header" data-animate>
+  <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}, home">
+    <span>Hugo</span> Rouillard<span>.</span>
+  </a>
 
-  <nav aria-label="Main navigation">
-    <a href="{{ relURL "projects/" }}">Projects</a>
-    <a href="{{ relURL "writing/" }}">Writing</a>
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="{{ relURL "projects/" }}"{{ if eq .Section "projects" }} aria-current="page"{{ end }}>Projects</a>
+    <a href="{{ relURL "writing/" }}"{{ if eq .Section "writing" }} aria-current="page"{{ end }}>Writing</a>
+    <span class="nav-divider" aria-hidden="true"></span>
+    <a class="social-link" href="{{ site.Params.github }}" aria-label="GitHub">GitHub</a>
+    <a class="social-link" href="{{ site.Params.linkedin }}" aria-label="LinkedIn">LinkedIn</a>
+    <button id="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
+      <span class="theme-icon theme-icon--light" aria-hidden="true">☀</span>
+      <span class="theme-icon theme-icon--dark" aria-hidden="true">☾</span>
+    </button>
   </nav>
 </header>

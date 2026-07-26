@@ -2,10 +2,11 @@
 
 ## Current Architecture
 
-- This is currently a dependency-free static site: `index.html` is the page and content source, `styles.css` supplies custom theming, and `script.js` owns theme, animation, and in-page blog navigation behavior.
-- There is no package manifest, build step, test suite, linter, formatter, CI workflow, or checked-in deployment configuration. Do not invent npm commands or add tooling for an otherwise small change.
-- Hugo has been considered for future content growth but is not installed or adopted. Do not migrate the site or introduce a framework unless the task explicitly calls for it.
-- `.nojekyll` is intentional for direct static hosting. The target domain is `hugorouillard.dev`, but this repository contains no `CNAME` or deploy workflow, so do not assume the hosting/DNS flow is configured here.
+- This is a Hugo static site. `content/` stores page content and front matter, `layouts/` contains the Go HTML templates, and `assets/` contains CSS and JavaScript processed through Hugo Pipes.
+- Projects may link directly to an external repository or render an optional local detail page. Writing uses normal Hugo section and single pages.
+- There is no package manifest, test suite, linter, formatter, CI workflow, or checked-in deployment configuration. Do not invent npm commands or add JavaScript tooling for an otherwise small change.
+- The site intentionally uses hand-written CSS and browser-native JavaScript without a frontend framework or CDN runtime dependencies.
+- `static/.nojekyll` is intentional for static hosting. The configured target domain is `hugorouillard.dev`, but this repository contains no `CNAME` or deploy workflow, so do not assume the hosting/DNS flow is configured here.
 
 ## Product Direction
 

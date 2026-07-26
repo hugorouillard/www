@@ -1,21 +1,50 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-            {{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{
-            site.Title }}{{ end }}
-        </title>
-        {{ with resources.Get "css/styles.css" }}
-        <link rel="stylesheet" href="{{ .RelPermalink }}" />
-        {{ end}} {{ block "head" . }}{{ end }}
-    </head>
-    <body>
-        {{ partial "header.html" . }}
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#1e1e2e">
+    {{ $description := .Description | default site.Params.description }}
+    <meta name="description" content="{{ $description }}">
+    <link rel="canonical" href="{{ .Permalink }}">
 
-        <main>{{ block "main" . }}{{ end }}</main>
+    <meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}">
+    <meta property="og:description" content="{{ $description }}">
+    <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta name="twitter:card" content="summary">
 
-        {{ partial "footer.html" . }}
-    </body>
+    <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+
+    {{ with .OutputFormats.Get "rss" }}
+      <link rel="alternate" type="application/rss+xml" title="{{ site.Title }}" href="{{ .RelPermalink }}">
+    {{ end }}
+
+    <script>
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem("theme") === "light" ? "light" : "dark";
+      } catch {
+        document.documentElement.dataset.theme = "dark";
+      }
+    </script>
+
+    {{ with resources.Get "css/styles.css" | minify | fingerprint }}
+      <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}">
+    {{ end }}
+    {{ block "head" . }}{{ end }}
+  </head>
+  <body>
+    <div class="site-shell">
+      {{ partial "header.html" . }}
+      <main class="site-main{{ if .IsHome }} site-main--home{{ end }}" data-animate>
+        {{ block "main" . }}{{ end }}
+      </main>
+      {{ partial "footer.html" . }}
+    </div>
+
+    {{ with resources.Get "js/script.js" | minify | fingerprint }}
+      <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+    {{ end }}
+  </body>
 </html>
