@@ -9,8 +9,6 @@
       "title" "Projects"
       "pages" (where .RegularPages.ByWeight "Params.featured" true)
       "useSummary" false
-      "indexURL" .RelPermalink
-      "indexLabel" "All projects"
     ) }}
   {{ end }}
 
@@ -20,8 +18,6 @@
       "title" "Blog Posts"
       "pages" (where .RegularPages.ByDate.Reverse "Params.featured" true)
       "useSummary" true
-      "indexURL" .RelPermalink
-      "indexLabel" "All writing"
     ) }}
   {{ end }}
 {{ end }}

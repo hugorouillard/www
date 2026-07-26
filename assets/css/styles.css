@@ -251,10 +251,6 @@ button:focus-visible {
   gap: 1.5rem 2.5rem;
 }
 
-.section-heading {
-  grid-row: 1 / span 2;
-}
-
 .section-heading h2 {
   margin: 0 0 1rem;
   color: var(--text-color);
@@ -321,7 +317,6 @@ button:focus-visible {
 }
 
 .entry-action,
-.section-more,
 .back-link {
   display: inline-block;
   margin-top: 0.5rem;
@@ -331,10 +326,6 @@ button:focus-visible {
   line-height: 1.25rem;
 }
 
-.section-more {
-  justify-self: start;
-  margin-top: 0;
-}
 
 .page-header {
   max-width: 44rem;
@@ -413,9 +404,6 @@ button:focus-visible {
     flex: 1;
   }
 
-  .section-more {
-    margin-top: 2rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
