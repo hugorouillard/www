@@ -74,13 +74,17 @@ button:focus-visible {
 
 .site-header {
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas:
+    "brand utilities"
+    "primary primary";
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  column-gap: 1.25rem;
+  gap: 1.25rem 0.75rem;
   padding-top: 4.5rem;
 }
 
 .brand {
+  grid-area: brand;
   flex: none;
   font-size: 1.5rem;
   font-weight: 600;
@@ -93,23 +97,37 @@ button:focus-visible {
 
 .primary-nav {
   display: flex;
-  justify-self: end;
-  gap: 1rem;
+  grid-area: primary;
+  justify-self: start;
+  gap: 1.5rem;
   color: var(--muted-color);
-  font-size: 0.875rem;
+  font-size: 0.9375rem;
   line-height: 1.5rem;
 }
 
 .primary-nav a {
+  position: relative;
   transition: color 0.15s ease;
 }
 
 .primary-nav a[aria-current="page"] {
-  color: var(--text-color);
+  color: var(--accent-color);
+}
+
+.primary-nav a[aria-current="page"]::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.35rem;
+  left: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  content: "";
 }
 
 .site-nav {
   display: flex;
+  grid-area: utilities;
   height: 1.5rem;
   align-items: center;
   gap: 0.5rem;
@@ -390,25 +408,7 @@ button:focus-visible {
   }
 
   .site-header {
-    grid-template-areas:
-      "brand utilities"
-      "primary primary";
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1.25rem 0.75rem;
     padding-top: 3.5rem;
-  }
-
-  .brand {
-    grid-area: brand;
-  }
-
-  .primary-nav {
-    grid-area: primary;
-    justify-self: start;
-  }
-
-  .site-nav {
-    grid-area: utilities;
   }
 
   .site-main {
