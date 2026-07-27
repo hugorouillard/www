@@ -1,4 +1,4 @@
-<header class="site-header" data-animate>
+<header class="site-header">
   <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="{{ site.Title }}, home">
     <span>Hugo</span> Rouillard
   </a>
@@ -8,6 +8,7 @@
     {{ range site.Menus.main }}
       <a href="{{ .URL }}"{{ if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) }} aria-current="page"{{ end }}>{{ .Name }}</a>
     {{ end }}
+    <span class="primary-nav-indicator" aria-hidden="true"></span>
   </nav>
 
   <nav class="site-nav" aria-label="Social links and display settings">

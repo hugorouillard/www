@@ -30,7 +30,64 @@ themeToggle?.addEventListener("click", () => {
   }
 });
 
-if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)",
+).matches;
+const primaryNav = document.querySelector(".primary-nav");
+const navIndicator = primaryNav?.querySelector(".primary-nav-indicator");
+const currentNavLink = primaryNav?.querySelector('[aria-current="page"]');
+
+function positionNavIndicator(link) {
+  if (!navIndicator || !link) return;
+  navIndicator.style.left = `${link.offsetLeft}px`;
+  navIndicator.style.width = `${link.offsetWidth}px`;
+}
+
+if (primaryNav && navIndicator && currentNavLink) {
+  positionNavIndicator(currentNavLink);
+  primaryNav.classList.add("is-enhanced");
+
+  requestAnimationFrame(() => {
+    primaryNav.classList.add("is-ready");
+  });
+
+  primaryNav.addEventListener("click", (event) => {
+    const link = event.target.closest("a");
+    if (
+      reducedMotion ||
+      !link ||
+      primaryNav.classList.contains("is-navigating") ||
+      link === currentNavLink ||
+      event.defaultPrevented ||
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    ) {
+      return;
+    }
+
+    event.preventDefault();
+    primaryNav.classList.add("is-navigating");
+    link.classList.add("is-pending");
+    positionNavIndicator(link);
+
+    window.setTimeout(() => {
+      window.location.assign(link.href);
+    }, 380);
+  });
+
+  window.addEventListener("resize", () => {
+    primaryNav.classList.remove("is-ready");
+    positionNavIndicator(
+      primaryNav.querySelector(".is-pending") || currentNavLink,
+    );
+    requestAnimationFrame(() => primaryNav.classList.add("is-ready"));
+  });
+}
+
+if (!reducedMotion) {
   document.querySelectorAll("[data-animate]").forEach((element, index) => {
     element.animate(
       [

@@ -96,6 +96,7 @@ button:focus-visible {
 }
 
 .primary-nav {
+  position: relative;
   display: flex;
   grid-area: primary;
   justify-self: start;
@@ -110,7 +111,8 @@ button:focus-visible {
   transition: color 0.15s ease;
 }
 
-.primary-nav a[aria-current="page"] {
+.primary-nav a[aria-current="page"],
+.primary-nav a.is-pending {
   color: var(--accent-color);
 }
 
@@ -123,6 +125,36 @@ button:focus-visible {
   border-radius: 999px;
   background: currentcolor;
   content: "";
+}
+
+.primary-nav-indicator {
+  position: absolute;
+  bottom: -0.35rem;
+  left: 0;
+  display: none;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent-color);
+  pointer-events: none;
+}
+
+.primary-nav.is-enhanced .primary-nav-indicator {
+  display: block;
+}
+
+.primary-nav.is-enhanced a[aria-current="page"]::after {
+  display: none;
+}
+
+.primary-nav.is-ready .primary-nav-indicator {
+  transition:
+    left 360ms cubic-bezier(0.34, 1.35, 0.64, 1),
+    width 360ms cubic-bezier(0.34, 1.35, 0.64, 1);
+}
+
+.primary-nav.is-navigating a[aria-current="page"]:not(.is-pending) {
+  color: var(--muted-color);
 }
 
 .site-nav {
