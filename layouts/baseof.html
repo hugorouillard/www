@@ -45,7 +45,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/motion@v12.23.11/dist/motion.js"></script>
     {{ with resources.Get "js/script.js" | minify | fingerprint }}
-      <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" defer></script>
+      <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
     {{ end }}
   </body>
 </html>
