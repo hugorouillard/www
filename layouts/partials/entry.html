@@ -9,7 +9,7 @@
 {{ $excerpt := $page.Description }}
 {{ if .useSummary }}
   {{ with $page.Summary }}
-    {{ $excerpt = . | plainify | strings.TrimSpace }}
+    {{ $excerpt = . | plainify }}
   {{ end }}
 {{ end }}
 
