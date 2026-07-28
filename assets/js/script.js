@@ -74,6 +74,11 @@ if (primaryNav && navIndicator && currentNavLink) {
     positionNavIndicator(link);
 
     window.setTimeout(() => {
+      try {
+        sessionStorage.setItem("animate-content-only", "true");
+      } catch {
+        // Fall back to the full-page animation when storage is unavailable.
+      }
       window.location.assign(link.href);
     }, 380);
   });
@@ -88,18 +93,69 @@ if (primaryNav && navIndicator && currentNavLink) {
 }
 
 if (!reducedMotion) {
-  document.querySelectorAll("[data-animate]").forEach((element, index) => {
-    element.animate(
-      [
-        { opacity: 0, transform: "translateY(12px)", filter: "blur(2px)" },
-        { opacity: 1, transform: "translateY(0)", filter: "blur(0)" },
-      ],
+  let contentOnly = false;
+  try {
+    contentOnly = sessionStorage.getItem("animate-content-only") === "true";
+    sessionStorage.removeItem("animate-content-only");
+  } catch {
+    // Animate the full page when storage is unavailable.
+  }
+
+  const { animate, stagger } = Motion;
+  const intro = ".intro > *";
+  const featured = [
+    ".curated-section .section-heading",
+    ".curated-section .entry-heading",
+    ".curated-section .entry > p",
+    ".curated-section .entry-action",
+    ".curated-section .entry-action > span",
+  ].join(", ");
+  const page = [
+    ".page-header",
+    ".entry-list--index > .entry",
+    ".empty-state",
+    ".article",
+  ].join(", ");
+
+  (async () => {
+    if (!contentOnly) {
+      animate(".primary-nav", {
+        opacity: [0, 1],
+        y: [20, 0],
+        blur: [1, 0],
+      });
+    }
+
+    await animate(
+      contentOnly ? `${intro}, ${page}` : `.brand, .site-nav > *, ${intro}, ${page}`,
       {
-        duration: 350,
-        delay: Math.min(index * 55, 275),
-        easing: "ease-out",
-        fill: "both",
+        opacity: [0, 1],
+        y: [20, 0],
+        blur: [1, 0],
       },
+      { delay: stagger(0.05) },
     );
-  });
+
+    await animate(
+      featured,
+      {
+        opacity: [0, 1],
+        x: [-20, 0],
+        blur: [1, 0],
+      },
+      { delay: stagger(0.05) },
+    );
+
+    if (!contentOnly) {
+      await animate(
+        ".site-footer > *",
+        {
+          opacity: [0, 1],
+          y: [20, 0],
+          blur: [1, 0],
+        },
+        { delay: 0.3, duration: 0.1 },
+      );
+    }
+  })();
 }
