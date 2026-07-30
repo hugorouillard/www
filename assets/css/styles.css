@@ -115,8 +115,7 @@ button:focus-visible {
 }
 
 .primary-nav a:hover,
-.primary-nav a[aria-current="page"],
-.primary-nav a.is-pending {
+.primary-nav a[aria-current="page"] {
   color: var(--text-color);
 }
 
@@ -129,6 +128,10 @@ button:focus-visible {
   border-radius: 999px;
   background: var(--accent-color);
   content: "";
+}
+
+.has-pending-nav-transition .primary-nav a[aria-current="page"]::after {
+  visibility: hidden;
 }
 
 .primary-nav-indicator {
@@ -155,10 +158,6 @@ button:focus-visible {
   transition:
     left 360ms cubic-bezier(0.34, 1.35, 0.64, 1),
     width 360ms cubic-bezier(0.34, 1.35, 0.64, 1);
-}
-
-.primary-nav.is-navigating a[aria-current="page"]:not(.is-pending) {
-  color: var(--muted-color);
 }
 
 .site-nav {

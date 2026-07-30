@@ -33,6 +33,16 @@ themeToggle?.addEventListener("click", () => {
 const reducedMotion = window.matchMedia(
   "(prefers-reduced-motion: reduce)",
 ).matches;
+let previousNavHref = null;
+
+try {
+  const storedNavHref = sessionStorage.getItem("nav-indicator-from");
+  sessionStorage.removeItem("nav-indicator-from");
+  if (!reducedMotion) previousNavHref = storedNavHref;
+} catch {
+  // Animate the full page when storage is unavailable.
+}
+
 const primaryNav = document.querySelector(".primary-nav");
 const navIndicator = primaryNav?.querySelector(".primary-nav-indicator");
 const currentNavLink = primaryNav?.querySelector('[aria-current="page"]');
@@ -44,19 +54,26 @@ function positionNavIndicator(link) {
 }
 
 if (primaryNav && navIndicator && currentNavLink) {
-  positionNavIndicator(currentNavLink);
-  primaryNav.classList.add("is-enhanced");
+  const previousNavLink = [...primaryNav.querySelectorAll("a")].find(
+    (link) => link.href === previousNavHref,
+  );
 
-  requestAnimationFrame(() => {
-    primaryNav.classList.add("is-ready");
-  });
+  positionNavIndicator(previousNavLink || currentNavLink);
+  primaryNav.classList.add("is-enhanced");
+  document.documentElement.classList.remove("has-pending-nav-transition");
+
+  if (previousNavLink) {
+    requestAnimationFrame(() => {
+      primaryNav.classList.add("is-ready");
+      requestAnimationFrame(() => positionNavIndicator(currentNavLink));
+    });
+  }
 
   primaryNav.addEventListener("click", (event) => {
     const link = event.target.closest("a");
     if (
       reducedMotion ||
       !link ||
-      primaryNav.classList.contains("is-navigating") ||
       link === currentNavLink ||
       event.defaultPrevented ||
       event.button !== 0 ||
@@ -68,39 +85,19 @@ if (primaryNav && navIndicator && currentNavLink) {
       return;
     }
 
-    event.preventDefault();
-    primaryNav.classList.add("is-navigating");
-    link.classList.add("is-pending");
-    positionNavIndicator(link);
-
-    window.setTimeout(() => {
-      try {
-        sessionStorage.setItem("animate-content-only", "true");
-      } catch {
-        // Fall back to the full-page animation when storage is unavailable.
-      }
-      window.location.assign(link.href);
-    }, 380);
+    try {
+      sessionStorage.setItem("nav-indicator-from", currentNavLink.href);
+    } catch {
+      // Fall back to the full-page animation when storage is unavailable.
+    }
   });
 
   window.addEventListener("resize", () => {
-    primaryNav.classList.remove("is-ready");
-    positionNavIndicator(
-      primaryNav.querySelector(".is-pending") || currentNavLink,
-    );
-    requestAnimationFrame(() => primaryNav.classList.add("is-ready"));
+    positionNavIndicator(currentNavLink);
   });
 }
 
-if (!reducedMotion) {
-  let contentOnly = false;
-  try {
-    contentOnly = sessionStorage.getItem("animate-content-only") === "true";
-    sessionStorage.removeItem("animate-content-only");
-  } catch {
-    // Animate the full page when storage is unavailable.
-  }
-
+if (!reducedMotion && !previousNavHref) {
   const { animate, stagger } = Motion;
   const intro = ".intro > *";
   const featured = [
@@ -118,16 +115,14 @@ if (!reducedMotion) {
   ].join(", ");
 
   (async () => {
-    if (!contentOnly) {
-      animate(".primary-nav", {
-        opacity: [0, 1],
-        y: [20, 0],
-        blur: [1, 0],
-      });
-    }
+    animate(".primary-nav", {
+      opacity: [0, 1],
+      y: [20, 0],
+      blur: [1, 0],
+    });
 
     await animate(
-      contentOnly ? `${intro}, ${page}` : `.brand, .site-nav > *, ${intro}, ${page}`,
+      `.brand, .site-nav > *, ${intro}, ${page}`,
       {
         opacity: [0, 1],
         y: [20, 0],
@@ -146,16 +141,14 @@ if (!reducedMotion) {
       { delay: stagger(0.05) },
     );
 
-    if (!contentOnly) {
-      await animate(
-        ".site-footer > *",
-        {
-          opacity: [0, 1],
-          y: [20, 0],
-          blur: [1, 0],
-        },
-        { delay: 0.3, duration: 0.1 },
-      );
-    }
+    await animate(
+      ".site-footer > *",
+      {
+        opacity: [0, 1],
+        y: [20, 0],
+        blur: [1, 0],
+      },
+      { delay: 0.3, duration: 0.1 },
+    );
   })();
 }
