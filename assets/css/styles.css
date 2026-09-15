@@ -79,7 +79,7 @@ button:focus-visible {
     "primary primary";
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1.75rem 0.75rem;
+  gap: 1.25rem 0.75rem;
   padding-top: 4.5rem;
 }
 
@@ -230,6 +230,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   gap: 5rem;
+  padding-top: 2.75rem;
   font-weight: 500;
 }
 
@@ -244,10 +245,18 @@ button:focus-visible {
 }
 
 .intro.prose p {
-  margin: 0.625rem 0 0;
+  margin: 0.875rem 0 0;
   color: var(--text-color);
   line-height: 1.65;
   opacity: calc(0.72 * var(--reveal-opacity, 1));
+}
+
+.intro.prose > :first-child {
+  margin-top: 0;
+}
+
+.intro.prose p:first-child + p {
+  margin-top: 1rem;
 }
 
 :root[data-theme="light"] .intro.prose p {
@@ -481,7 +490,7 @@ button:focus-visible {
   }
 
   .site-header {
-    gap: 1.25rem 0.75rem;
+    gap: 1rem 0.75rem;
     padding-top: 3.5rem;
   }
 
@@ -492,6 +501,7 @@ button:focus-visible {
 
   .site-main--home {
     gap: 4rem;
+    padding-top: 2.25rem;
   }
 
   .curated-section {
