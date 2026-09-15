@@ -259,6 +259,12 @@ button:focus-visible {
   margin-top: 1rem;
 }
 
+.intro.prose > p:first-child {
+  color: var(--accent-color);
+  font-weight: 700;
+  opacity: var(--reveal-opacity, 1);
+}
+
 :root[data-theme="light"] .intro.prose p {
   opacity: calc(0.5 * var(--reveal-opacity, 1));
 }
