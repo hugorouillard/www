@@ -350,7 +350,7 @@ button:focus-visible {
 @media (prefers-reduced-motion: no-preference) {
   .has-pending-page-animation .primary-nav,
   .has-pending-page-animation .brand,
-  .has-pending-page-animation .site-nav > *,
+  .has-pending-page-animation .site-nav,
   .has-pending-page-animation .intro > *,
   .has-pending-page-animation .page-header,
   .has-pending-page-animation .entry-list--index > .entry,

@@ -132,7 +132,7 @@ if (
       });
 
       await animate(
-        `.brand, .site-nav > *, ${intro}, ${page}`,
+        `.brand, .site-nav, ${intro}, ${page}`,
         {
           opacity: [0, 1],
           y: [20, 0],
