@@ -87,7 +87,7 @@ button:focus-visible {
   grid-area: brand;
   flex: none;
   color: var(--text-color);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 1;
 }
