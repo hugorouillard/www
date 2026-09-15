@@ -1,15 +1,13 @@
-{{ with .pages }}
-  <section class="curated-section" aria-labelledby="{{ $.id }}">
-    <div class="section-heading">
-      <h2 id="{{ $.id }}">{{ $.title }}</h2>
-    </div>
-    <div class="entry-list">
-      {{ range . }}
-        {{ partial "entry.html" (dict
-          "page" .
-          "useSummary" $.useSummary
-        ) }}
-      {{ end }}
-    </div>
-  </section>
-{{ end }}
+<section class="curated-section" aria-labelledby="{{ .id }}">
+  <div class="section-heading">
+    <h2 id="{{ .id }}">{{ .title }}</h2>
+  </div>
+  <div class="entry-list">
+    {{ range .pages }}
+      {{ partial "entry.html" (dict
+        "page" .
+        "useSummary" $.useSummary
+      ) }}
+    {{ end }}
+  </div>
+</section>

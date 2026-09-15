@@ -115,7 +115,6 @@ if (
   const page = [
     ".page-header",
     ".entry-list--index > .entry",
-    ".empty-state",
     ".article",
   ].join(", ");
 

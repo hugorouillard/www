@@ -401,11 +401,6 @@ button:focus-visible {
   max-width: 44rem;
 }
 
-.empty-state {
-  margin-top: 3rem;
-  color: var(--muted-color);
-}
-
 .article {
   width: min(100%, 44rem);
   margin-inline: auto;

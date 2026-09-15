@@ -5,11 +5,6 @@ enableRobotsTXT = true
 disableKinds = ['taxonomy', 'term']
 
 [[menus.main]]
-  name = 'About'
-  pageRef = '/'
-  weight = 5
-
-[[menus.main]]
   name = 'Projects'
   pageRef = '/projects'
   weight = 10
