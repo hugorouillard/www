@@ -6,4 +6,4 @@ I’m an internet-grown engineer, currently working on hardware test infrastruct
 
 Outside work, I play piano, queue League, and get too into random things for a week at a time.
 
-wip. reminder for myself to make proper write ups when I finally have time.
+_(reminder for myself to make proper write ups when I finally have time)_
