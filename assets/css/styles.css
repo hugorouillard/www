@@ -256,7 +256,7 @@ button:focus-visible {
 }
 
 .intro.prose p:first-child + p {
-  margin-top: 1rem;
+  margin-top: 1.25rem;
 }
 
 .intro.prose > p:first-child {
