@@ -86,13 +86,14 @@ button:focus-visible {
 .brand {
   grid-area: brand;
   flex: none;
-  font-size: 1.5rem;
+  color: var(--text-color);
+  font-size: 1.35rem;
   font-weight: 600;
   line-height: 1;
 }
 
-.brand span {
-  color: var(--accent-color);
+.brand:hover {
+  color: var(--text-color);
 }
 
 .primary-nav {
