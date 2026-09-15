@@ -114,11 +114,13 @@ if (
     ".site-nav > *",
     ".primary-nav > a",
     ".primary-nav-indicator",
-    ".intro > *",
+    ".intro > :first-child",
     ".page-header > *",
     ".article > .back-link",
     ".article-header > *",
   ].join(", ");
+  const introRemainder = ".intro > :not(:first-child)";
+  const introRemainderCount = document.querySelectorAll(introRemainder).length;
   const content = [
     ".curated-section .section-heading",
     ".entry .entry-heading",
@@ -129,7 +131,7 @@ if (
   ].join(", ");
   const footer = ".site-footer > *";
   const revealTargets = document.querySelectorAll(
-    `${opening}, ${content}, ${footer}`,
+    `${opening}, ${introRemainder}, ${content}, ${footer}`,
   );
 
   (async () => {
@@ -149,7 +151,16 @@ if (
       );
       await revealAnimations.at(-1);
 
-      revealAnimations.push(
+      const continuationAnimations = [
+        animate(
+          introRemainder,
+          {
+            "--reveal-opacity": [0, 1],
+            y: [20, 0],
+            blur: [1, 0],
+          },
+          { delay: stagger(0.05, { startDelay: 0.1 }) },
+        ),
         animate(
           content,
           {
@@ -157,10 +168,15 @@ if (
             x: [-20, 0],
             blur: [1, 0],
           },
-          { delay: stagger(0.05) },
+          {
+            delay: stagger(0.05, {
+              startDelay: 0.1 + introRemainderCount * 0.05,
+            }),
+          },
         ),
-      );
-      await revealAnimations.at(-1);
+      ];
+      revealAnimations.push(...continuationAnimations);
+      await Promise.all(continuationAnimations);
 
       revealAnimations.push(
         animate(
