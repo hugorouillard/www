@@ -79,7 +79,7 @@ button:focus-visible {
     "primary primary";
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 1.25rem 0.75rem;
+  gap: 1.75rem 0.75rem;
   padding-top: 4.5rem;
 }
 
@@ -222,7 +222,8 @@ button:focus-visible {
 
 .site-main {
   flex: 1;
-  padding-block: 5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 5rem;
 }
 
 .site-main--home {
@@ -457,11 +458,13 @@ button:focus-visible {
   }
 
   .site-header {
+    gap: 1.25rem 0.75rem;
     padding-top: 3.5rem;
   }
 
   .site-main {
-    padding-block: 4rem;
+    padding-top: 3rem;
+    padding-bottom: 4rem;
   }
 
   .site-main--home {
