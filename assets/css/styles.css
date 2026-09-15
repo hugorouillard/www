@@ -247,11 +247,11 @@ button:focus-visible {
   margin: 0.625rem 0 0;
   color: var(--text-color);
   line-height: 1.65;
-  opacity: 0.72;
+  opacity: calc(0.72 * var(--reveal-opacity, 1));
 }
 
 :root[data-theme="light"] .intro.prose p {
-  opacity: 0.5;
+  opacity: calc(0.5 * var(--reveal-opacity, 1));
 }
 
 .prose h1,
@@ -351,19 +351,42 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .has-pending-page-animation .primary-nav,
+  :where(
+    .brand,
+    .site-nav > *,
+    .primary-nav > a,
+    .primary-nav-indicator,
+    .intro > *,
+    .page-header > *,
+    .curated-section .section-heading,
+    .entry .entry-heading,
+    .entry > p,
+    .entry .entry-action,
+    .entry .entry-action > span,
+    .article > .back-link,
+    .article-header > *,
+    .article-content > *,
+    .site-footer > *
+  ) {
+    opacity: var(--reveal-opacity, 1);
+  }
+
   .has-pending-page-animation .brand,
-  .has-pending-page-animation .site-nav,
+  .has-pending-page-animation .site-nav > *,
+  .has-pending-page-animation .primary-nav > a,
+  .has-pending-page-animation .primary-nav-indicator,
   .has-pending-page-animation .intro > *,
-  .has-pending-page-animation .page-header,
-  .has-pending-page-animation .entry-list--index > .entry,
-  .has-pending-page-animation .article,
+  .has-pending-page-animation .page-header > *,
   .has-pending-page-animation .curated-section .section-heading,
-  .has-pending-page-animation .curated-section .entry-heading,
-  .has-pending-page-animation .curated-section .entry > p,
-  .has-pending-page-animation .curated-section .entry-action,
+  .has-pending-page-animation .entry .entry-heading,
+  .has-pending-page-animation .entry > p,
+  .has-pending-page-animation .entry .entry-action,
+  .has-pending-page-animation .entry .entry-action > span,
+  .has-pending-page-animation .article > .back-link,
+  .has-pending-page-animation .article-header > *,
+  .has-pending-page-animation .article-content > *,
   .has-pending-page-animation .site-footer > * {
-    opacity: 0;
+    --reveal-opacity: 0;
   }
 }
 
@@ -399,11 +422,11 @@ button:focus-visible {
   color: var(--text-color);
   font-size: 0.875rem;
   line-height: 1.6;
-  opacity: 0.72;
+  opacity: calc(0.72 * var(--reveal-opacity, 1));
 }
 
 :root[data-theme="light"] .entry p {
-  opacity: 0.5;
+  opacity: calc(0.5 * var(--reveal-opacity, 1));
 }
 
 .entry-action,

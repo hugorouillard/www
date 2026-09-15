@@ -109,59 +109,80 @@ if (
   window.Motion?.stagger
 ) {
   const { animate, stagger } = window.Motion;
-  const intro = ".intro > *";
-  const featured = [
+  const opening = [
+    ".brand",
+    ".site-nav > *",
+    ".primary-nav > a",
+    ".primary-nav-indicator",
+    ".intro > *",
+    ".page-header > *",
+    ".article > .back-link",
+    ".article-header > *",
+  ].join(", ");
+  const content = [
     ".curated-section .section-heading",
-    ".curated-section .entry-heading",
-    ".curated-section .entry > p",
-    ".curated-section .entry-action",
-    ".curated-section .entry-action > span",
+    ".entry .entry-heading",
+    ".entry > p",
+    ".entry .entry-action",
+    ".entry .entry-action > span",
+    ".article-content > *",
   ].join(", ");
-  const page = [
-    ".page-header",
-    ".entry-list--index > .entry",
-    ".article",
-  ].join(", ");
+  const footer = ".site-footer > *";
+  const revealTargets = document.querySelectorAll(
+    `${opening}, ${content}, ${footer}`,
+  );
 
   (async () => {
+    const revealAnimations = [];
+
     try {
-      animate(".primary-nav", {
-        opacity: [0, 1],
-        y: [20, 0],
-        blur: [1, 0],
-      });
-
-      await animate(
-        `.brand, .site-nav, ${intro}, ${page}`,
-        {
-          opacity: [0, 1],
-          y: [20, 0],
-          blur: [1, 0],
-        },
-        { delay: stagger(0.05) },
+      revealAnimations.push(
+        animate(
+          opening,
+          {
+            "--reveal-opacity": [0, 1],
+            y: [20, 0],
+            blur: [1, 0],
+          },
+          { delay: stagger(0.05) },
+        ),
       );
+      await revealAnimations.at(-1);
 
-      await animate(
-        featured,
-        {
-          opacity: [0, 1],
-          x: [-20, 0],
-          blur: [1, 0],
-        },
-        { delay: stagger(0.05) },
+      revealAnimations.push(
+        animate(
+          content,
+          {
+            "--reveal-opacity": [0, 1],
+            x: [-20, 0],
+            blur: [1, 0],
+          },
+          { delay: stagger(0.05) },
+        ),
       );
+      await revealAnimations.at(-1);
 
-      await animate(
-        ".site-footer > *",
-        {
-          opacity: [0, 1],
-          y: [20, 0],
-          blur: [1, 0],
-        },
-        { delay: 0.3, duration: 0.1 },
+      revealAnimations.push(
+        animate(
+          footer,
+          {
+            "--reveal-opacity": [0, 1],
+            y: [20, 0],
+            blur: [1, 0],
+          },
+          { delay: stagger(0.15), duration: 0.1 },
+        ),
       );
+      await revealAnimations.at(-1);
     } finally {
       document.documentElement.classList.remove("has-pending-page-animation");
+      revealAnimations.forEach((animation) => animation.cancel());
+      revealTargets.forEach((element) => {
+        element.style.removeProperty("--reveal-opacity");
+        element.style.removeProperty("filter");
+        element.style.removeProperty("opacity");
+        element.style.removeProperty("transform");
+      });
     }
   })();
 } else {
