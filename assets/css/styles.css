@@ -347,16 +347,6 @@ button:focus-visible {
   gap: 3rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .site-main--home .curated-section .section-heading,
-  .site-main--home .curated-section .entry-heading,
-  .site-main--home .curated-section .entry > p,
-  .site-main--home .curated-section .entry-action,
-  .site-footer > * {
-    opacity: 0;
-  }
-}
-
 .entry-list--index {
   max-width: 44rem;
   margin-top: 3rem;

@@ -49,7 +49,9 @@
       {{ partial "footer.html" . }}
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/motion@v12.23.11/dist/motion.js"></script>
+    {{ with resources.Get "js/vendor/motion-12.23.11.js" | fingerprint }}
+      <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
+    {{ end }}
     {{ with resources.Get "js/script.js" | minify | fingerprint }}
       <script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
     {{ end }}

@@ -97,8 +97,13 @@ if (primaryNav && navIndicator && currentNavLink) {
   });
 }
 
-if (!reducedMotion && !previousNavHref) {
-  const { animate, stagger } = Motion;
+if (
+  !reducedMotion &&
+  !previousNavHref &&
+  window.Motion?.animate &&
+  window.Motion?.stagger
+) {
+  const { animate, stagger } = window.Motion;
   const intro = ".intro > *";
   const featured = [
     ".curated-section .section-heading",
