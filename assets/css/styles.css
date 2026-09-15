@@ -363,8 +363,7 @@ button:focus-visible {
   :where(
     .brand,
     .site-nav > *,
-    .primary-nav > a,
-    .primary-nav-indicator,
+    .primary-nav,
     .intro > *,
     .page-header > *,
     .curated-section .section-heading,
@@ -382,8 +381,7 @@ button:focus-visible {
 
   .has-pending-page-animation .brand,
   .has-pending-page-animation .site-nav > *,
-  .has-pending-page-animation .primary-nav > a,
-  .has-pending-page-animation .primary-nav-indicator,
+  .has-pending-page-animation .primary-nav,
   .has-pending-page-animation .intro > *,
   .has-pending-page-animation .page-header > *,
   .has-pending-page-animation .curated-section .section-heading,

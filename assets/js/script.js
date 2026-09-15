@@ -112,8 +112,7 @@ if (
   const opening = [
     ".brand",
     ".site-nav > *",
-    ".primary-nav > a",
-    ".primary-nav-indicator",
+    ".primary-nav",
     ".intro > :first-child",
     ".page-header > *",
     ".article > .back-link",
