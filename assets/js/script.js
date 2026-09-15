@@ -53,20 +53,22 @@ function positionNavIndicator(link) {
   navIndicator.style.width = `${link.offsetWidth}px`;
 }
 
-if (primaryNav && navIndicator && currentNavLink) {
+if (primaryNav && navIndicator) {
   const previousNavLink = [...primaryNav.querySelectorAll("a")].find(
     (link) => link.href === previousNavHref,
   );
 
-  positionNavIndicator(previousNavLink || currentNavLink);
-  primaryNav.classList.add("is-enhanced");
-  document.documentElement.classList.remove("has-pending-nav-transition");
+  if (currentNavLink) {
+    positionNavIndicator(previousNavLink || currentNavLink);
+    primaryNav.classList.add("is-enhanced");
+    document.documentElement.classList.remove("has-pending-nav-transition");
 
-  if (previousNavLink) {
-    requestAnimationFrame(() => {
-      primaryNav.classList.add("is-ready");
-      requestAnimationFrame(() => positionNavIndicator(currentNavLink));
-    });
+    if (previousNavLink) {
+      requestAnimationFrame(() => {
+        primaryNav.classList.add("is-ready");
+        requestAnimationFrame(() => positionNavIndicator(currentNavLink));
+      });
+    }
   }
 
   primaryNav.addEventListener("click", (event) => {
@@ -86,7 +88,10 @@ if (primaryNav && navIndicator && currentNavLink) {
     }
 
     try {
-      sessionStorage.setItem("nav-indicator-from", currentNavLink.href);
+      sessionStorage.setItem(
+        "nav-indicator-from",
+        currentNavLink?.href || window.location.href,
+      );
     } catch {
       // Fall back to the full-page animation when storage is unavailable.
     }
@@ -119,40 +124,46 @@ if (
   ].join(", ");
 
   (async () => {
-    animate(".primary-nav", {
-      opacity: [0, 1],
-      y: [20, 0],
-      blur: [1, 0],
-    });
-
-    await animate(
-      `.brand, .site-nav > *, ${intro}, ${page}`,
-      {
+    try {
+      animate(".primary-nav", {
         opacity: [0, 1],
         y: [20, 0],
         blur: [1, 0],
-      },
-      { delay: stagger(0.05) },
-    );
+      });
 
-    await animate(
-      featured,
-      {
-        opacity: [0, 1],
-        x: [-20, 0],
-        blur: [1, 0],
-      },
-      { delay: stagger(0.05) },
-    );
+      await animate(
+        `.brand, .site-nav > *, ${intro}, ${page}`,
+        {
+          opacity: [0, 1],
+          y: [20, 0],
+          blur: [1, 0],
+        },
+        { delay: stagger(0.05) },
+      );
 
-    await animate(
-      ".site-footer > *",
-      {
-        opacity: [0, 1],
-        y: [20, 0],
-        blur: [1, 0],
-      },
-      { delay: 0.3, duration: 0.1 },
-    );
+      await animate(
+        featured,
+        {
+          opacity: [0, 1],
+          x: [-20, 0],
+          blur: [1, 0],
+        },
+        { delay: stagger(0.05) },
+      );
+
+      await animate(
+        ".site-footer > *",
+        {
+          opacity: [0, 1],
+          y: [20, 0],
+          blur: [1, 0],
+        },
+        { delay: 0.3, duration: 0.1 },
+      );
+    } finally {
+      document.documentElement.classList.remove("has-pending-page-animation");
+    }
   })();
+} else {
+  document.documentElement.classList.remove("has-pending-page-animation");
 }

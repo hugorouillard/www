@@ -28,11 +28,30 @@
         document.documentElement.dataset.theme = "dark";
       }
 
-      try {
-        if (sessionStorage.getItem("nav-indicator-from")) {
-          document.documentElement.classList.add("has-pending-nav-transition");
+      (() => {
+        let hasPendingNavTransition = false;
+
+        try {
+          hasPendingNavTransition = Boolean(
+            sessionStorage.getItem("nav-indicator-from"),
+          );
+          if (hasPendingNavTransition) {
+            document.documentElement.classList.add("has-pending-nav-transition");
+          }
+        } catch {}
+
+        if (
+          !hasPendingNavTransition &&
+          !window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ) {
+          document.documentElement.classList.add("has-pending-page-animation");
+          window.setTimeout(() => {
+            document.documentElement.classList.remove(
+              "has-pending-page-animation",
+            );
+          }, 3000);
         }
-      } catch {}
+      })();
     </script>
 
     {{ with resources.Get "css/styles.css" | minify | fingerprint }}

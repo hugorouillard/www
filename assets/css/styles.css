@@ -347,6 +347,23 @@ button:focus-visible {
   gap: 3rem;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .has-pending-page-animation .primary-nav,
+  .has-pending-page-animation .brand,
+  .has-pending-page-animation .site-nav > *,
+  .has-pending-page-animation .intro > *,
+  .has-pending-page-animation .page-header,
+  .has-pending-page-animation .entry-list--index > .entry,
+  .has-pending-page-animation .article,
+  .has-pending-page-animation .curated-section .section-heading,
+  .has-pending-page-animation .curated-section .entry-heading,
+  .has-pending-page-animation .curated-section .entry > p,
+  .has-pending-page-animation .curated-section .entry-action,
+  .has-pending-page-animation .site-footer > * {
+    opacity: 0;
+  }
+}
+
 .entry-list--index {
   max-width: 44rem;
   margin-top: 3rem;
