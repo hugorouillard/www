@@ -12,10 +12,6 @@ on:
 permissions:
   contents: read
 
-concurrency:
-  group: build-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-
 env:
   HUGO_VERSION: "0.165.0"
 
@@ -24,6 +20,9 @@ jobs:
     name: Build production site
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    concurrency:
+      group: build-${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
 
     steps:
       - name: Check out repository
@@ -66,3 +65,72 @@ jobs:
           include-hidden-files: true
           if-no-files-found: error
           retention-days: 14
+
+  deploy:
+    name: Deploy production site
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment:
+      name: production
+      url: https://hugorouillard.dev/
+    concurrency:
+      group: production
+      cancel-in-progress: false
+
+    steps:
+      - name: Download deployable site
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: site-${{ github.sha }}
+          path: site
+
+      - name: Configure SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.DEPLOY_KNOWN_HOSTS }}
+        run: |
+          umask 077
+          install -d -m 700 ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
+
+      - name: Upload release
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+        run: |
+          target="$DEPLOY_USER@$DEPLOY_HOST"
+          release_dir="/var/www/hugorouillard.dev/releases/$GITHUB_SHA"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$target" "mkdir -p '$release_dir'"
+          rsync \
+            --archive \
+            --delete \
+            --chmod=D755,F644 \
+            -e "ssh -o BatchMode=yes -o StrictHostKeyChecking=yes" \
+            site/ "$target:$release_dir/"
+
+      - name: Activate release
+        env:
+          DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+          DEPLOY_USER: ${{ vars.DEPLOY_USER }}
+        run: |
+          target="$DEPLOY_USER@$DEPLOY_HOST"
+          ssh -o BatchMode=yes -o StrictHostKeyChecking=yes "$target" \
+            "cd /var/www/hugorouillard.dev && \
+             ln -sfn 'releases/$GITHUB_SHA' '.current-$GITHUB_SHA' && \
+             mv -Tf '.current-$GITHUB_SHA' current"
+
+      - name: Verify deployment
+        run: >-
+          curl
+          --fail
+          --silent
+          --show-error
+          --retry 10
+          --retry-delay 3
+          --retry-all-errors
+          https://hugorouillard.dev/
+          > /dev/null
