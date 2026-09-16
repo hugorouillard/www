@@ -22,6 +22,6 @@
   </div>
   {{ with $excerpt }}<p>{{ . }}</p>{{ end }}
   <a class="entry-action" href="{{ $destination }}">
-    {{ if eq $page.Section "writing" }}Read article{{ else if $external }}View repository{{ else }}Learn more{{ end }} <span aria-hidden="true">→</span>
+    {{ if eq $page.Section "blog" }}Read article{{ else if $external }}View repository{{ else }}Learn more{{ end }} <span aria-hidden="true">→</span>
   </a>
 </article>

@@ -5,7 +5,7 @@
   </header>
 
   {{ $pages := .Pages }}
-  {{ if eq .Section "writing" }}
+  {{ if eq .Section "blog" }}
     {{ $pages = .Pages.ByDate.Reverse }}
   {{ else }}
     {{ $pages = .Pages.ByTitle }}
@@ -16,8 +16,8 @@
       {{ range . }}
         {{ partial "entry.html" (dict
           "page" .
-          "useSummary" (eq .Section "writing")
-          "showDate" (eq .Section "writing")
+          "useSummary" (eq .Section "blog")
+          "showDate" (eq .Section "blog")
         ) }}
       {{ end }}
     </div>

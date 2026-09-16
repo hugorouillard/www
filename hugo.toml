@@ -15,8 +15,8 @@ disableKinds = ['taxonomy', 'term']
   weight = 10
 
 [[menus.main]]
-  name = 'Writing'
-  pageRef = '/writing'
+  name = 'Blog'
+  pageRef = '/blog'
   weight = 20
 
 [params]

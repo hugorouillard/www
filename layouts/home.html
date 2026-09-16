@@ -12,9 +12,9 @@
     ) }}
   {{ end }}
 
-  {{ with site.GetPage "/writing" }}
+  {{ with site.GetPage "/blog" }}
     {{ partial "featured-section.html" (dict
-      "id" "featured-writing"
+      "id" "featured-blog"
       "title" "Blog Posts"
       "pages" (where .RegularPages.ByDate.Reverse "Params.featured" true)
       "useSummary" true
