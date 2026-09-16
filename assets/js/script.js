@@ -109,10 +109,12 @@ if (
   window.Motion?.stagger
 ) {
   const { animate, stagger } = window.Motion;
-  const opening = [
+  const headerOpening = [
     ".brand",
-    ".site-nav > *",
+    ".site-nav",
     ".primary-nav",
+  ].join(", ");
+  const pageOpening = [
     ".intro > :first-child",
     ".page-header > *",
     ".article > .back-link",
@@ -130,16 +132,16 @@ if (
   ].join(", ");
   const footer = ".site-footer > *";
   const revealTargets = document.querySelectorAll(
-    `${opening}, ${introRemainder}, ${content}, ${footer}`,
+    `${headerOpening}, ${pageOpening}, ${introRemainder}, ${content}, ${footer}`,
   );
 
   (async () => {
     const revealAnimations = [];
 
     try {
-      revealAnimations.push(
+      const openingAnimations = [
         animate(
-          opening,
+          headerOpening,
           {
             "--reveal-opacity": [0, 1],
             y: [20, 0],
@@ -147,8 +149,18 @@ if (
           },
           { delay: stagger(0.05) },
         ),
-      );
-      await revealAnimations.at(-1);
+        animate(
+          pageOpening,
+          {
+            "--reveal-opacity": [0, 1],
+            y: [20, 0],
+            blur: [1, 0],
+          },
+          { delay: stagger(0.05, { startDelay: 0.25 }) },
+        ),
+      ];
+      revealAnimations.push(...openingAnimations);
+      await Promise.all(openingAnimations);
 
       const continuationAnimations = [
         animate(

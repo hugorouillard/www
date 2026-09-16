@@ -368,7 +368,7 @@ button:focus-visible {
 @media (prefers-reduced-motion: no-preference) {
   :where(
     .brand,
-    .site-nav > *,
+    .site-nav,
     .primary-nav,
     .intro > *,
     .page-header > *,
@@ -386,7 +386,7 @@ button:focus-visible {
   }
 
   .has-pending-page-animation .brand,
-  .has-pending-page-animation .site-nav > *,
+  .has-pending-page-animation .site-nav,
   .has-pending-page-animation .primary-nav,
   .has-pending-page-animation .intro > *,
   .has-pending-page-animation .page-header > *,
