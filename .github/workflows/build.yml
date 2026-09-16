@@ -1,0 +1,68 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - master
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  HUGO_VERSION: "0.165.0"
+
+jobs:
+  build:
+    name: Build production site
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          persist-credentials: false
+
+      - name: Install Hugo
+        uses: peaceiris/actions-hugo@2752ce1d29631191ea3f27c23495fa06139a5b78 # v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Report Hugo version
+        run: hugo version
+
+      - name: Build
+        run: >-
+          hugo
+          --gc
+          --minify
+          --cleanDestinationDir
+          --environment production
+          --printPathWarnings
+          --panicOnWarning
+
+      - name: Verify expected output
+        run: |
+          test -s public/index.html
+          test -s public/robots.txt
+          test -s public/sitemap.xml
+          test -f public/.nojekyll
+
+      - name: Upload deployable site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: site-${{ github.sha }}
+          path: public/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
