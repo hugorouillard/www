@@ -269,10 +269,6 @@ button:focus-visible {
   opacity: var(--reveal-opacity, 1);
 }
 
-:root[data-theme="light"] .intro.prose p {
-  opacity: calc(0.5 * var(--reveal-opacity, 1));
-}
-
 .prose h1,
 .page-header h1,
 .article-header h1 {
@@ -498,10 +494,6 @@ button:focus-visible {
   font-size: 0.875rem;
   line-height: 1.6;
   opacity: calc(0.72 * var(--reveal-opacity, 1));
-}
-
-:root[data-theme="light"] .entry p {
-  opacity: calc(0.5 * var(--reveal-opacity, 1));
 }
 
 .entry-action,
