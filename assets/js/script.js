@@ -12,7 +12,7 @@ function applyTheme(theme) {
   }
 
   if (themeColor) {
-    themeColor.content = isDark ? "#1e1e2e" : "#fff0df";
+    themeColor.content = isDark ? "#1e1e2e" : "#fff5f5";
   }
 }
 
