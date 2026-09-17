@@ -99,6 +99,10 @@ This is an engineering inference rather than a documented statement of Sony's in
 
 Developers responded in different ways. They subdivided prominent surfaces, kept problematic geometry away from the camera, used fog to shorten sight lines, and built custom sorting and clipping systems. Naughty Dog went further with _Crash Bandicoot_: its rail camera made it possible to precompute visibility and polygon ordering, while shaded, mostly untextured character geometry avoided the worst texture stretching. [Andy Gavin's development retrospective](https://all-things-andy-gavin.com/2011/02/04/making-crash-bandicoot-part-3/) describes those constraints as inputs to the game's visual design, not defects discovered at the end.
 
+{{< video src="media/crash-bandicoot-ps1-artifacts.mp4" poster="media/crash-bandicoot-ps1-artifacts-poster.jpg" >}}
+In _Crash Bandicoot_, the shaded character holds together while the textured path and scenery crawl and snap as the rail camera advances. [Gameplay source](https://www.youtube.com/watch?v=xK-h4M4Aetg&t=140s).
+{{< /video >}}
+
 ## The artifact is the architecture
 
 Modern emulators provide a useful experiment. Subpixel precision can reduce geometry wobble without fixing affine textures. Perspective-correct texturing can straighten surfaces without fixing polygon sorting. Enhanced depth handling addresses a third problem again. Toggle each feature independently and the supposedly singular "PS1 wobble" separates into its component parts.
