@@ -62,7 +62,7 @@
   <body>
     <div class="site-shell">
       {{ partial "header.html" . }}
-      <main class="site-main{{ if .IsHome }} site-main--home{{ end }}" data-animate>
+      <main class="site-main{{ if .IsHome }} site-main--home{{ else if .IsSection }} site-main--section{{ end }}" data-animate>
         {{ block "main" . }}{{ end }}
       </main>
       {{ partial "footer.html" . }}

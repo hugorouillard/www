@@ -1,8 +1,9 @@
 {{ define "main" }}
-  <header class="page-header prose">
-    <h1>{{ .Title }}</h1>
-    {{ with .Content }}{{ . }}{{ end }}
-  </header>
+  {{ with .Content }}
+    <header class="page-header prose">
+      {{ . }}
+    </header>
+  {{ end }}
 
   {{ $pages := .Pages }}
   {{ if eq .Section "blog" }}
@@ -12,14 +13,34 @@
   {{ end }}
 
   {{ with $pages }}
-    <div class="entry-list entry-list--index">
-      {{ range . }}
-        {{ partial "entry.html" (dict
-          "page" .
-          "useSummary" (eq .Section "blog")
-          "showDate" (eq .Section "blog")
-        ) }}
-      {{ end }}
-    </div>
+    {{ if eq $.Section "blog" }}
+      <div class="entry-years">
+        {{ range .GroupByDate "2006" }}
+          <section class="entry-year" aria-labelledby="year-{{ .Key }}">
+            <div class="year-heading">
+              <h2 id="year-{{ .Key }}">{{ .Key }}</h2>
+            </div>
+            <div class="entry-list">
+              {{ range .Pages }}
+                {{ partial "entry.html" (dict
+                  "page" .
+                  "useSummary" true
+                  "showDate" true
+                ) }}
+              {{ end }}
+            </div>
+          </section>
+        {{ end }}
+      </div>
+    {{ else }}
+      <div class="entry-list entry-list--index">
+        {{ range . }}
+          {{ partial "entry.html" (dict
+            "page" .
+            "useSummary" false
+          ) }}
+        {{ end }}
+      </div>
+    {{ end }}
   {{ end }}
 {{ end }}

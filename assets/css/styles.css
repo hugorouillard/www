@@ -234,6 +234,10 @@ button:focus-visible {
   font-weight: 500;
 }
 
+.site-main--section {
+  padding-top: 2.75rem;
+}
+
 .intro {
   max-width: 43rem;
 }
@@ -373,6 +377,7 @@ button:focus-visible {
     .intro > *,
     .page-header > *,
     .curated-section .section-heading,
+    .year-heading,
     .entry .entry-heading,
     .entry > p,
     .entry .entry-action,
@@ -391,6 +396,7 @@ button:focus-visible {
   .has-pending-page-animation .intro > *,
   .has-pending-page-animation .page-header > *,
   .has-pending-page-animation .curated-section .section-heading,
+  .has-pending-page-animation .year-heading,
   .has-pending-page-animation .entry .entry-heading,
   .has-pending-page-animation .entry > p,
   .has-pending-page-animation .entry .entry-action,
@@ -403,9 +409,45 @@ button:focus-visible {
   }
 }
 
-.entry-list--index {
+.entry-list--index,
+.entry-years {
   max-width: 44rem;
+}
+
+.page-header + :is(.entry-list--index, .entry-years) {
   margin-top: 3rem;
+}
+
+.entry-years {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.year-heading {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.year-heading h2 {
+  flex: none;
+  margin: 0;
+  color: var(--muted-color);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.year-heading::after {
+  display: block;
+  height: 10px;
+  flex: 1;
+  content: "";
+  background-image:
+    linear-gradient(45deg, transparent 49%, var(--border-color) 49%, transparent 51%),
+    linear-gradient(-45deg, transparent 49%, var(--border-color) 49%, transparent 51%);
+  background-size: 10px 10px;
 }
 
 .entry-heading {
@@ -523,7 +565,8 @@ button:focus-visible {
     padding-bottom: 4rem;
   }
 
-  .site-main--home {
+  .site-main--home,
+  .site-main--section {
     gap: 4rem;
     padding-top: 2.25rem;
   }
