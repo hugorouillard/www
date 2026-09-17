@@ -101,7 +101,7 @@ button:focus-visible {
   display: flex;
   grid-area: primary;
   justify-self: start;
-  gap: 0.5rem;
+  gap: 1rem;
   color: var(--muted-color);
   font-size: 0.9rem;
   font-weight: 600;
