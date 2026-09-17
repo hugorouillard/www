@@ -3,15 +3,16 @@ title = 'Why were PS1 graphics so wobbly?'
 date = '2026-05-26T19:20:00+02:00'
 description = 'Texture warping, polygon jitter, and popping were separate consequences of how the original PlayStation rendered 3D scenes.'
 summary = 'The characteristic PS1 wobble was not one artifact. It was the visible result of several deliberate shortcuts in the console’s graphics pipeline.'
-featured = false
-draft = true
+featured = true
 +++
 
 Move a camera through a PlayStation game and the world rarely stays still. Walls bend. Character silhouettes twitch. A floor polygon briefly appears over the object standing on it. Distant textures sparkle as if every surface is covered in glitter.
 
-These effects are often grouped together as "PS1 wobble," but they do not have a common cause. They come from different stages of the console's graphics pipeline, and each reveals a different piece of information that was discarded along the way.
+{{< video src="media/ff7-ps1-artifacts.mp4" poster="media/ff7-ps1-artifacts-poster.jpg" >}}
+Watch the floor and character edges as the camera settles.
+{{< /video >}}
 
-The interesting part is not that the PlayStation was imprecise. Every computer is. It is *where* the machine spent its precision: enough to transform and project a 3D world, but not enough to preserve subpixel positions, depth-correct textures, or test depth for every pixel.
+These effects are often grouped together as "PS1 wobble," but they do not have a common cause. They come from different stages of the console's graphics pipeline, and each reveals a different piece of information that was discarded along the way.
 
 ## A 3D front end and a 2D renderer
 
@@ -84,7 +85,7 @@ The rest of the PS1 look comes largely from texture sampling and color output.
 
 The GPU samples textures without bilinear filtering. When a texture is enlarged, one source texel becomes a hard-edged block of screen pixels instead of blending with its neighbors. The GPU also has no native mipmapping. When a detailed texture becomes smaller than a pixel, tiny camera movements select different texels and produce shimmer.
 
-Neither limitation causes texture warping. Affine interpolation determines *where* the texture is sampled; filtering and mipmapping determine *how* nearby samples are combined.
+Neither limitation causes texture warping. Affine interpolation determines _where_ the texture is sampled; filtering and mipmapping determine _how_ nearby samples are combined.
 
 Normal drawing uses five bits for each red, green, and blue channel. Smooth gradients therefore have only 32 levels per channel and can form visible bands. The GPU can add a repeating 4x4 dither pattern before reducing colors to that format. At normal viewing distance, especially through an analog signal on a CRT, the pattern helps adjacent color levels blend perceptually. Enlarged on a modern display, the ordered noise becomes an artifact of its own.
 
@@ -96,7 +97,7 @@ These omissions make more sense in the context of the machine. The PlayStation h
 
 This is an engineering inference rather than a documented statement of Sony's intent, but the trade is visible: the hardware favors a simple command stream and high practical drawing throughput, while difficult cases are left to software and game design.
 
-Developers responded in different ways. They subdivided prominent surfaces, kept problematic geometry away from the camera, used fog to shorten sight lines, and built custom sorting and clipping systems. Naughty Dog went further with *Crash Bandicoot*: its rail camera made it possible to precompute visibility and polygon ordering, while shaded, mostly untextured character geometry avoided the worst texture stretching. [Andy Gavin's development retrospective](https://all-things-andy-gavin.com/2011/02/04/making-crash-bandicoot-part-3/) describes those constraints as inputs to the game's visual design, not defects discovered at the end.
+Developers responded in different ways. They subdivided prominent surfaces, kept problematic geometry away from the camera, used fog to shorten sight lines, and built custom sorting and clipping systems. Naughty Dog went further with _Crash Bandicoot_: its rail camera made it possible to precompute visibility and polygon ordering, while shaded, mostly untextured character geometry avoided the worst texture stretching. [Andy Gavin's development retrospective](https://all-things-andy-gavin.com/2011/02/04/making-crash-bandicoot-part-3/) describes those constraints as inputs to the game's visual design, not defects discovered at the end.
 
 ## The artifact is the architecture
 

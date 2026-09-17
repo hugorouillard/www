@@ -1,0 +1,15 @@
+<figure class="article-media">
+  <video
+    controls
+    autoplay
+    loop
+    muted
+    playsinline
+    preload="metadata"
+    poster="{{ .Get "poster" | relURL }}"
+  >
+    <source src="{{ .Get "src" | relURL }}" type="video/mp4">
+    <a href="{{ .Get "src" | relURL }}">Download the video clip.</a>
+  </video>
+  {{ with .Inner }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>
