@@ -20,6 +20,6 @@ disableKinds = ['taxonomy', 'term']
   weight = 20
 
 [params]
-  description = 'Things I’ve built, things I’ve written, and whatever else has caught my attention.'
+  description = 'Software Engineer'
   github = 'https://github.com/hugorouillard'
   linkedin = 'https://www.linkedin.com/in/rouillard-hugo/'
