@@ -1,9 +1,13 @@
 {{ $page := .page }}
 {{ $destination := $page.RelPermalink }}
-{{ $external := false }}
-{{ with $page.Params.external_url }}
+{{ $appURL := $page.Params.app_url }}
+{{ $sourceURL := $page.Params.source_url }}
+{{ with $appURL }}
   {{ $destination = . }}
-  {{ $external = true }}
+{{ else }}
+  {{ with $sourceURL }}
+    {{ $destination = . }}
+  {{ end }}
 {{ end }}
 
 {{ $excerpt := $page.Description }}
@@ -21,7 +25,16 @@
     {{ end }}
   </div>
   {{ with $excerpt }}<p>{{ . }}</p>{{ end }}
-  <a class="entry-action" href="{{ $destination }}">
-    {{ if eq $page.Section "blog" }}Read post{{ else if $external }}View repository{{ else }}Learn more{{ end }} <span aria-hidden="true">→</span>
-  </a>
+  <div class="entry-actions">
+    {{ if eq $page.Section "blog" }}
+      <a class="entry-action" href="{{ $destination }}">Read post <span aria-hidden="true">→</span></a>
+    {{ else }}
+      {{ with $appURL }}
+        <a class="entry-action" href="{{ . }}">Open app <span aria-hidden="true">↗</span></a>
+      {{ end }}
+      {{ with $sourceURL }}
+        <a class="entry-action" href="{{ . }}">View repository <span aria-hidden="true">↗</span></a>
+      {{ end }}
+    {{ end }}
+  </div>
 </article>

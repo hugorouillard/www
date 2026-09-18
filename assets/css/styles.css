@@ -504,16 +504,25 @@ button:focus-visible {
   opacity: var(--reveal-opacity, 1);
 }
 
+.entry-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.5rem;
+}
+
 .entry-action,
 .back-link {
   display: inline-block;
-  margin-top: 0.5rem;
   color: var(--accent-color);
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.25rem;
 }
 
+.back-link {
+  margin-top: 0.5rem;
+}
 
 .page-header {
   max-width: 44rem;

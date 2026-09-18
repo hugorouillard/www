@@ -1,7 +1,8 @@
 +++
 title = '{{ replace .File.ContentBaseName "-" " " | title }}'
 description = ''
-external_url = ''
+source_url = ''
+app_url = ''
 featured = false
 draft = true
 
