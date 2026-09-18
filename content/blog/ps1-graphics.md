@@ -9,7 +9,7 @@ featured = true
 Move a camera through a PlayStation game and the world rarely stays still. Walls bend. Character silhouettes twitch. A floor polygon briefly appears over the object standing on it. Distant textures sparkle as if every surface is covered in glitter.
 
 {{< video src="media/ff7-ps1-artifacts.mp4" poster="media/ff7-ps1-artifacts-poster.jpg" >}}
-Watch the floor and character edges as the camera settles.
+Watch the floor and character edges as the camera settles. [Gameplay source](https://youtu.be/D6-lbtqQ7oY).
 {{< /video >}}
 
 These effects are often grouped together as "PS1 wobble," but they do not have a common cause. They come from different stages of the console's graphics pipeline, and each reveals a different piece of information that was discarded along the way.
