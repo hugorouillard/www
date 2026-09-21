@@ -24,7 +24,6 @@
               {{ range .Pages }}
                 {{ partial "entry.html" (dict
                   "page" .
-                  "useSummary" true
                   "showDate" true
                 ) }}
               {{ end }}
@@ -37,7 +36,6 @@
         {{ range . }}
           {{ partial "entry.html" (dict
             "page" .
-            "useSummary" false
           ) }}
         {{ end }}
       </div>

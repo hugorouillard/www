@@ -485,10 +485,16 @@ button:focus-visible {
 }
 
 .entry time,
-.article-header time {
+.article-meta {
   flex: none;
   color: var(--muted-color);
   font-size: 0.8rem;
+}
+
+.article-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
 }
 
 .entry p {

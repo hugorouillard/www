@@ -8,7 +8,6 @@
       "id" "featured-projects"
       "title" "Projects"
       "pages" (where .RegularPages.ByWeight "Params.featured" true)
-      "useSummary" false
     ) }}
   {{ end }}
 
@@ -17,7 +16,6 @@
       "id" "featured-blog"
       "title" "Blog Posts"
       "pages" (where .RegularPages.ByDate.Reverse "Params.featured" true)
-      "useSummary" true
     ) }}
   {{ end }}
 {{ end }}

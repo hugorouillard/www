@@ -6,7 +6,6 @@
     {{ range .pages }}
       {{ partial "entry.html" (dict
         "page" .
-        "useSummary" $.useSummary
       ) }}
     {{ end }}
   </div>

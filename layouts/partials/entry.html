@@ -10,13 +10,6 @@
   {{ end }}
 {{ end }}
 
-{{ $excerpt := $page.Description }}
-{{ if .useSummary }}
-  {{ with $page.Summary }}
-    {{ $excerpt = . | plainify }}
-  {{ end }}
-{{ end }}
-
 <article class="entry" data-animate>
   <div class="entry-heading">
     <h3><a href="{{ $destination }}">{{ $page.LinkTitle }}</a></h3>
@@ -24,7 +17,7 @@
       <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006-01-02" }}</time>
     {{ end }}
   </div>
-  {{ with $excerpt }}<p>{{ . }}</p>{{ end }}
+  {{ with $page.Description }}<p>{{ . }}</p>{{ end }}
   <div class="entry-actions">
     {{ if eq $page.Section "blog" }}
       <a class="entry-action" href="{{ $destination }}">Read post <span aria-hidden="true">→</span></a>

@@ -2,7 +2,6 @@
 title = 'Why were PS1 graphics so wobbly?'
 date = '2026-05-26T19:20:00+02:00'
 description = 'Texture warping, polygon jitter, and popping were separate consequences of how the original PlayStation rendered 3D scenes.'
-summary = 'The characteristic PS1 wobble was not one artifact. It was the visible result of several deliberate shortcuts in the console’s graphics pipeline.'
 featured = true
 +++
 
