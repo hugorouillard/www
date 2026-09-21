@@ -124,6 +124,7 @@ if (
   const introRemainderCount = document.querySelectorAll(introRemainder).length;
   const content = [
     ".curated-section .section-heading",
+    ".year-heading",
     ".entry .entry-heading",
     ".entry > p",
     ".entry .entry-action",
