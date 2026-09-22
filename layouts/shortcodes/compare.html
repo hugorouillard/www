@@ -1,0 +1,23 @@
+<figure class="article-media">
+  <div class="media-comparison">
+    <div>
+      <img
+        src="{{ .Get "left-src" | relURL }}"
+        alt="{{ .Get "left-alt" }}"
+        loading="lazy"
+        decoding="async"
+      >
+      <span>{{ .Get "left-label" }}</span>
+    </div>
+    <div>
+      <img
+        src="{{ .Get "right-src" | relURL }}"
+        alt="{{ .Get "right-alt" }}"
+        loading="lazy"
+        decoding="async"
+      >
+      <span>{{ .Get "right-label" }}</span>
+    </div>
+  </div>
+  {{ with .Inner }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

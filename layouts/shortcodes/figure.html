@@ -1,0 +1,9 @@
+<figure class="article-media">
+  <img
+    src="{{ .Get "src" | relURL }}"
+    alt="{{ .Get "alt" }}"
+    loading="lazy"
+    decoding="async"
+  >
+  {{ with .Inner }}<figcaption>{{ . | markdownify }}</figcaption>{{ end }}
+</figure>

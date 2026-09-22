@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 430" role="img" aria-labelledby="title desc">
+  <title id="title">Two possible painter's-order results for intersecting polygons</title>
+  <desc id="desc">The same blue and pink intersecting polygons appear in two frames. In one frame the blue polygon is painted last and covers the intersection; in the next the pink polygon is painted last and covers it.</desc>
+  <rect width="800" height="430" rx="12" fill="#181825"/>
+
+  <g font-family="system-ui, sans-serif">
+    <text x="205" y="42" fill="#cdd6f4" font-size="22" font-weight="700" text-anchor="middle">Frame A</text>
+    <text x="595" y="42" fill="#cdd6f4" font-size="22" font-weight="700" text-anchor="middle">Frame B</text>
+    <text x="205" y="68" fill="#a6adc8" font-size="16" text-anchor="middle">blue primitive sorted nearer</text>
+    <text x="595" y="68" fill="#a6adc8" font-size="16" text-anchor="middle">pink primitive sorted nearer</text>
+  </g>
+
+  <g stroke="#45475a" stroke-width="2">
+    <rect x="35" y="88" width="340" height="260" rx="8" fill="#1e1e2e"/>
+    <rect x="425" y="88" width="340" height="260" rx="8" fill="#1e1e2e"/>
+  </g>
+
+  <g stroke="#45475a" stroke-width="1" opacity=".7">
+    <path d="M55 128H355M55 178H355M55 228H355M55 278H355M55 328H355M85 108V338M145 108V338M205 108V338M265 108V338M325 108V338"/>
+    <path d="M445 128H745M445 178H745M445 228H745M445 278H745M445 328H745M475 108V338M535 108V338M595 108V338M655 108V338M715 108V338"/>
+  </g>
+
+  <g stroke-width="4" stroke-linejoin="round">
+    <path d="M60 180L325 125L350 190L85 245Z" fill="#f38ba8" stroke="#fab0c1"/>
+    <path d="M125 320L235 108L292 132L182 338Z" fill="#89b4fa" stroke="#b4befe"/>
+  </g>
+  <g stroke-width="4" stroke-linejoin="round">
+    <path d="M515 320L625 108L682 132L572 338Z" fill="#89b4fa" stroke="#b4befe"/>
+    <path d="M450 180L715 125L740 190L475 245Z" fill="#f38ba8" stroke="#fab0c1"/>
+  </g>
+
+  <path d="M375 218H425" stroke="#a6adc8" stroke-width="3" stroke-dasharray="6 7"/>
+  <path d="M410 207L425 218L410 229" fill="none" stroke="#a6adc8" stroke-width="3"/>
+  <text x="400" y="383" fill="#f5c2e7" font-family="system-ui, sans-serif" font-size="18" font-weight="600" text-anchor="middle">a small depth change flips the draw order</text>
+  <text x="400" y="408" fill="#a6adc8" font-family="system-ui, sans-serif" font-size="16" text-anchor="middle">the later primitive replaces every covered pixel</text>
+</svg>

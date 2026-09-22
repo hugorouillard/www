@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 420" role="img" aria-labelledby="title desc">
+  <title id="title">Fractional movement compared with whole-pixel movement</title>
+  <desc id="desc">A smooth projected vertex position rises gradually from screen coordinate 120 to 121 while the coordinate sent to the PlayStation GPU stays at 120 and then jumps to 121.</desc>
+  <rect width="800" height="420" rx="12" fill="#181825"/>
+
+  <g fill="none" stroke="#45475a" stroke-width="2">
+    <path d="M120 85H744M120 165H744M120 245H744M120 325H744"/>
+    <path d="M120 65V325H744"/>
+  </g>
+
+  <g fill="#a6adc8" font-family="system-ui, sans-serif" font-size="18">
+    <text x="92" y="331" text-anchor="end">120.0</text>
+    <text x="92" y="251" text-anchor="end">120.4</text>
+    <text x="92" y="171" text-anchor="end">120.8</text>
+    <text x="92" y="91" text-anchor="end">121.2</text>
+    <text x="432" y="385" text-anchor="middle">successive frames</text>
+  </g>
+
+  <path d="M140 285L256 245L372 205L488 165L604 125L720 85" fill="none" stroke="#89dceb" stroke-width="5" stroke-linecap="round"/>
+  <path d="M140 325H604V125H720" fill="none" stroke="#f5c2e7" stroke-width="6" stroke-linejoin="round"/>
+
+  <g fill="#89dceb">
+    <circle cx="140" cy="285" r="7"/><circle cx="256" cy="245" r="7"/><circle cx="372" cy="205" r="7"/><circle cx="488" cy="165" r="7"/><circle cx="604" cy="125" r="7"/><circle cx="720" cy="85" r="7"/>
+  </g>
+  <g fill="#f5c2e7">
+    <circle cx="140" cy="325" r="8"/><circle cx="256" cy="325" r="8"/><circle cx="372" cy="325" r="8"/><circle cx="488" cy="325" r="8"/><circle cx="604" cy="125" r="8"/><circle cx="720" cy="125" r="8"/>
+  </g>
+
+  <g font-family="system-ui, sans-serif" font-size="18" font-weight="600">
+    <g fill="#89dceb"><rect x="146" y="18" width="30" height="4"/><text x="188" y="27">projected position</text></g>
+    <g fill="#f5c2e7"><rect x="428" y="18" width="30" height="4"/><text x="470" y="27">whole-pixel GPU coordinate</text></g>
+  </g>
+
+  <path d="M604 147V185" stroke="#f5c2e7" stroke-width="2"/>
+  <text x="592" y="180" fill="#f5c2e7" font-family="system-ui, sans-serif" font-size="18" font-weight="600" text-anchor="end">one-pixel snap</text>
+</svg>
